@@ -8,36 +8,4 @@
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    
-    <platform name="android">
-        <preference name = "SplashScreen" value = "screen" />
-        <preference name = "SplashScreenDelay" value = "3000" />
-        <preference name = "SplashMaintainAspectRatio" value = "false" />
-
-        <splash src="www/img/RaulLinoLogo.png" density="hdpi"/>
-        <splash src="www/img/RaulLinoLogo.png" density="ldpi"/>
-        <splash src="www/img/RaulLinoLogo.png" density="mdpi"/>
-        <splash src="www/img/RaulLinoLogo.png" density="xhdpi"/>
-        <splash src="www/img/RaulLinoLogo.png" density="xxhdpi"/>
-
-        <splash src="www/img/RaulLinoLogo.png" density="land-hdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="land-ldpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="land-mdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="land-xhdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="land-xxhdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="land-xxxhdpi" />
-
-        <splash src="www/img/RaulLinoLogo.png" density="port-hdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="port-ldpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="port-mdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="port-xhdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="port-xxhdpi" />
-        <splash src="www/img/RaulLinoLogo.png" density="port-xxxhdpi" /> 
-
-        <icon src="www\img\logo.png" density="ldpi"/>
-        <icon src="www\img\logo.png" density="mdpi"/>
-        <icon src="www\img\logo.png" density="hdpi"/>
-        <icon src="www\img\logo.png" density="xhdpi"/>
-    
-    </platform>
 </widget>
