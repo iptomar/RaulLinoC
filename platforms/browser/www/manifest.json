@@ -1,8 +1,8 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "RaulLino",
-  "short_name": "RaulLino",
+  "name": "HelloCordova",
+  "short_name": "HelloCordova",
   "version": "io.cordova.hellocordova",
   "description": "Sample Apache Cordova App",
   "author": "Apache Cordova Team",

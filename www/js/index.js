@@ -23,7 +23,36 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
-
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
 }
+
+/**
+ * Change view when user click on navigation bar options
+ * @param {*} pagina 
+ * 
+ */
+function changeView(curView) {
+    if (curView == "home") {
+        document.getElementById("home").style.display = "block";
+        document.getElementById("bio").style.display = "none";
+        document.getElementById("map").style.display = "none";
+        document.getElementById("augReal").style.display = "none";
+    } else if (curView == "bio") {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("bio").style.display = "block";
+        document.getElementById("map").style.display = "none";
+        document.getElementById("augReal").style.display = "none";
+    } else if (curView == "map") {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("bio").style.display = "none";
+        document.getElementById("map").style.display = "block";
+        document.getElementById("augReal").style.display = "none";
+    } else if (curView == "augReal") {
+        document.getElementById("home").style.display = "none";
+        document.getElementById("bio").style.display = "none";
+        document.getElementById("map").style.display = "none";
+        document.getElementById("augReal").style.display = "block";
+    }
+}
+

@@ -104,7 +104,19 @@ h1 {
 
 
 @media screen and (prefers-color-scheme: dark) {
-    body {
-        background-image:linear-gradient(to bottom, #585858 0%, #1B1B1B 51%);
-    }
+}
+
+nav {
+    position: fixed;
+    bottom: 0%;
+    max-width:750px;
+    background: none;
+    left: 50%;
+    margin-left: -228px;
+    padding: 0 2em;
+}
+
+.pag {
+    font-size: 2.5em;
+    color: darkblue;
 }
