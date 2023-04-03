@@ -23,7 +23,25 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
-
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
 }
+
+/**
+ * Change view when user click on navigation bar options
+ * @param {*} page
+ * 
+ */
+
+var currView = "home"
+
+// function that changes the page when user clicks on navigation bar options
+function changeView(view) {
+    var currViewElem = document.getElementById(currView).style.display = "none";
+
+    //sets current view 
+    currView = view;
+
+    currViewElem = document.getElementById(currView).style.display = "block";
+}
+
