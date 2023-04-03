@@ -29,30 +29,19 @@ function onDeviceReady() {
 
 /**
  * Change view when user click on navigation bar options
- * @param {*} pagina 
+ * @param {*} page
  * 
  */
-function changeView(curView) {
-    if (curView == "home") {
-        document.getElementById("home").style.display = "block";
-        document.getElementById("bio").style.display = "none";
-        document.getElementById("map").style.display = "none";
-        document.getElementById("augReal").style.display = "none";
-    } else if (curView == "bio") {
-        document.getElementById("home").style.display = "none";
-        document.getElementById("bio").style.display = "block";
-        document.getElementById("map").style.display = "none";
-        document.getElementById("augReal").style.display = "none";
-    } else if (curView == "map") {
-        document.getElementById("home").style.display = "none";
-        document.getElementById("bio").style.display = "none";
-        document.getElementById("map").style.display = "block";
-        document.getElementById("augReal").style.display = "none";
-    } else if (curView == "augReal") {
-        document.getElementById("home").style.display = "none";
-        document.getElementById("bio").style.display = "none";
-        document.getElementById("map").style.display = "none";
-        document.getElementById("augReal").style.display = "block";
-    }
+
+var currView = "home"
+
+// function that changes the page when user clicks on navigation bar options
+function changeView(view) {
+    var currViewElem = document.getElementById(currView).style.display = "none";
+
+    //sets current view 
+    currView = view;
+
+    currViewElem = document.getElementById(currView).style.display = "block";
 }
 

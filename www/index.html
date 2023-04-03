@@ -45,31 +45,37 @@
     </head>
     <!-- loads website with home view -->
     <body onload="changeView('home')">
-        <div>
-            <nav >
-                <!-- nav bar button that sends user to home view -->
-                <a class="navbar-brand" href="#" onclick="changeView('home')" style="cursor:pointer;">Home</a>
-                <!-- nav bar button that sends user to biography view -->
-                <a class="navbar-brand" href="#" onclick="changeView('bio')" style="cursor:pointer;">Bio</a>
-                <!-- nav bar button that sends user to map view -->
-                <a class="navbar-brand" href="#" onclick="changeView('map')" style="cursor:pointer;">Map</a>
-                <!-- nav bar button that sends user to augmented reality view -->
-                <a class="navbar-brand" href="#" onclick="changeView('augReal')" style="cursor:pointer;">Augmented Reality</a>
+        <div>   
+            <nav class="navbar fixed-bottom navbar-expand-md">
+                <ul class="navbar-nav mx-auto" style="flex-direction: row;">
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#" onclick="changeView('home')" style="cursor:pointer;"><img src="icons/home.svg" style="height:50px; width:50px"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#" onclick="changeView('bio')" style="cursor:pointer;"><img src="icons/Nota biográfica.svg" style="height:50px; width:50px"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#" onclick="changeView('map')" style="cursor:pointer;"><img src="icons/mapa.svg" style="height:50px; width:50px"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#" onclick="changeView('augReal')" style="cursor:pointer;"><img src="icons/realidade aumentada.svg" style="height:50px; width:50px"/></a>
+                    </li>
+                </ul>
             </nav>
             <!-- home view -->
-            <div id="home" class="pag">
-                <h1>Home</h1>
+            <div id="home" class="pag" style="display: none;">
+                <h1>Home</h1>   
             </div>
             <!-- biography view -->
-            <div id="bio" class="pag">
+            <div id="bio" class="pag" style="display: none;">
                 <h1>Biografia</h1>
             </div>
             <!-- map view-->
-            <div id="map" class="pag">
+            <div id="map" class="pag" style="display: none;">
                 <h1>Mapa</h1>
             </div>
             <!-- augmented reality view -->
-            <div id="augReal" class="pag">
+            <div id="augReal" class="pag" style="display: none;">
                 <h1>Realidade Aumentada</h1>
             </div>
         </div>
