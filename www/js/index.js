@@ -17,28 +17,25 @@
  * under the License.
  */
 
+// holds the view that is currently being displayed
+let currView = "home";
+// holds map object
+let map;
+
 // Wait for the deviceready event before using any of Cordova's device APIs.
-// See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener('deviceready', onDeviceReady, false);
 
+// Cordova is ready
 function onDeviceReady() {
-    // Cordova is now initialized. Have fun!
-    //console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    //document.getElementById('deviceready').classList.add('ready');
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
 
 /**
- * Change view when user click on navigation bar options
- * @param {*} page
+ * Callback function that is called when the user's location is found;
+ * Where map is defined
  * 
+ * @param {*} position coordinates of the user's location
  */
-
-var currView = "home";
-// variable that stores the map
-var map;
-
-//onSuccess Geolocation
 function onSuccess(position) {
     map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -47,19 +44,30 @@ function onSuccess(position) {
     }).addTo(map);
 };
 
-// onError Callback receives a PositionError object
+/**
+ * Callback function that shows an error message if the user's location is not found (or denied)
+ * @param {*} error 
+ */
 function onError(error) {
-    alert('code: ' + error.code + '\n' +
-        'message: ' + error.message + '\n');
+    console.log('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
 }
 
-// function that changes the page when user clicks on navigation bar options
+/**
+ * Changes the page view
+ * 
+ * @param {*} view view to be displayed
+ */
 function changeView(view) {
-    var currViewElem = document.getElementById(currView).style.display = "none";
+    let currViewElem = document.getElementById(currView).style.display = "none";
 
     //sets current view 
     currView = view;
 
     currViewElem = document.getElementById(currView).style.display = "block";
+
+    // if current view is map, loads map
+    if (currView == "map") {
+        map.invalidateSize();
+    }
 }
 
