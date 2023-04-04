@@ -23,8 +23,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    document.getElementById('deviceready').classList.add('ready');
+    //console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+    //document.getElementById('deviceready').classList.add('ready');
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
 
 /**
@@ -33,7 +34,24 @@ function onDeviceReady() {
  * 
  */
 
-var currView = "home"
+var currView = "home";
+// variable that stores the map
+var map;
+
+//onSuccess Geolocation
+function onSuccess(position) {
+    map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+    }).addTo(map);
+};
+
+// onError Callback receives a PositionError object
+function onError(error) {
+    alert('code: ' + error.code + '\n' +
+        'message: ' + error.message + '\n');
+}
 
 // function that changes the page when user clicks on navigation bar options
 function changeView(view) {
