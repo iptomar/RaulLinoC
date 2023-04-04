@@ -56,7 +56,7 @@
                         <a class="navbar-brand" href="#" onclick="changeView('bio')" style="cursor:pointer;"><img src="img/icons/Nota biográfica.svg" style="height:50px; width:50px"/></a>
                     </li>
                     <li class="nav-item">
-                        <a class="navbar-brand" href="#" onclick="changeView('map')" style="cursor:pointer;"><img src="img/icons/mapa.svg" style="height:50px; width:50px"/></a>
+                        <a class="navbar-brand" href="#" onclick="changeView('mapPage')" style="cursor:pointer;"><img src="img/icons/mapa.svg" style="height:50px; width:50px"/></a>
                     </li>
                     <li class="nav-item">
                         <a class="navbar-brand" href="#" onclick="changeView('augReal')" style="cursor:pointer;"><img src="img/icons/realidade aumentada.svg" style="height:50px; width:50px"/></a>
@@ -72,7 +72,18 @@
                 <h1>Biografia</h1>
             </div>
             <!-- map view-->
-            <div id="map" class="pag" style="display: none;">
+            <div id="mapPage" class="pag" style="display: none;">
+                <div>
+                    <div class="title-container">
+                        <h2>Itinerário</h2>
+                        <h3>Raul Lino</h3>
+                    </div>
+                    <hr style="background-color: #e2d301; height: 2px;"/>   
+                    <p class="text-left" style="margin-left: 10px">MAPA</p>                
+                    <div id="mapContainer">
+                        <div id="map" style="opacity: 1;"></div>
+                    </div>
+                </div>
             </div>
             <!-- augmented reality view -->
             <div id="augReal" class="pag" style="display: none;">

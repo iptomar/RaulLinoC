@@ -24,7 +24,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
+    background-color:#FFFFFF;
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
     font-size:12px;
     height:100vh;
@@ -105,6 +105,39 @@ h1 {
 @media screen and (prefers-color-scheme: dark) {
 }
 
-#map {
-    height: 500px;
+#mapContainer {
+    position : center; 
+    border: 1px solid #000;
+    margin: 10px 10px 100px 10px;
+    height: fit-content;
 }
+
+#map {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 70vh;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px 0 10px;
+}
+  
+h2 {
+    font-size: 24px;
+}
+  
+h3 {
+    font-size: 18px;
+    margin-left: auto;
+    color: #04c263;
+}
+
+  
