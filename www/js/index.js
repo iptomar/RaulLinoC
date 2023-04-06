@@ -45,7 +45,7 @@ function onSuccess(position) {
     // use those coordinates to define the bounds of the map
     const bounds = L.latLngBounds(UPRIGHTCORNER, DOWNLEFTCORNER);
 
-    // create the map with the bound
+    // create the map with
     map = L.map('map', {
         center: [position.coords.latitude, position.coords.longitude],
         maxZoom: 18,
