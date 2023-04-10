@@ -26,11 +26,11 @@ let markerExists = false;
 
 // convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
 // these coordinates were acquired without any study (eye estimation)
-const UPRIGHTCORNER = L.latLng(39.494334, -8.270672);
-const DOWNLEFTCORNER = L.latLng(39.419585, -8.105805);
+const UPLEFTCORNER = L.latLng(39.509396, -8.263140);
+const DOWNRIGHTCORNER = L.latLng(39.402366, -8.169918);
 
 // use those coordinates to define the bounds of the map
-const bounds = L.latLngBounds(UPRIGHTCORNER, DOWNLEFTCORNER);
+const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
 // Wait for the deviceready event before using any of Cordova's device APIs.
 document.addEventListener('deviceready', onDeviceReady, false);
@@ -62,8 +62,8 @@ function onSuccess(position) {
     map = L.map('map', {
         center: [position.coords.latitude, position.coords.longitude],
         maxZoom: 18,
-        minZoom: 14,
-    }).setView([position.coords.latitude, position.coords.longitude], 13);
+        minZoom: 12,
+    }).setView([position.coords.latitude, position.coords.longitude], 12);
     
     // sets max bounds
     map.setMaxBounds(bounds);
