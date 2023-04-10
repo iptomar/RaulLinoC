@@ -57,6 +57,25 @@ function onSuccess(position) {
 
     // add the OpenStreetMap tiles (making the map usable)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+
+    //costum marker    
+    const marker = L.icon({
+        iconUrl: 'www\\img\\icons\\localizacao_verde.svg',
+        iconSize: [50, 50],
+        //icon allignment set to bottom mid corner of the icon
+        iconAnchor: [25, 50],
+    });
+
+
+    // fetches data from json file and add the markers based on the each elemnts coordinates to the map
+    fetch("dados_raulLino.json")
+        .then(response => response.json())
+        .then(json => {
+            json.data.forEach(element => {
+                L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map);
+            });
+        });
 };
 
 /**

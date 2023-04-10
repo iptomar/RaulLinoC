@@ -18,6 +18,10 @@
   "cordova": {
     "platforms": [
       "browser"
-    ]
-  }
+    ],
+    "plugins": {
+      "cordova-plugin-file": {}
+    }
+  },
+  "dependencies": {}
 }

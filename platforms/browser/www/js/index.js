@@ -37,11 +37,45 @@ function onDeviceReady() {
  * @param {*} position coordinates of the user's location
  */
 function onSuccess(position) {
-    map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+    // convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
+    // these coordinates were acquired without any study (eye estimation)
+    const UPRIGHTCORNER = L.latLng(39.494334, -8.270672);
+    const DOWNLEFTCORNER = L.latLng(39.419585, -8.105805);
+
+    // use those coordinates to define the bounds of the map
+    const bounds = L.latLngBounds(UPRIGHTCORNER, DOWNLEFTCORNER);
+
+    // create the map with
+    map = L.map('map', {
+        center: [position.coords.latitude, position.coords.longitude],
         maxZoom: 18,
-    }).addTo(map);
+        minZoom: 14,
+    }).setView([position.coords.latitude, position.coords.longitude], 13);
+
+    // sets max bounds
+    map.setMaxBounds(bounds);
+
+    // add the OpenStreetMap tiles (making the map usable)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+
+    //costum marker    
+    const marker = L.icon({
+        iconUrl: 'www\\img\\icons\\localizacao_verde.svg',
+        iconSize: [50, 50],
+        //icon allignment set to bottom mid corner of the icon
+        iconAnchor: [25, 50],
+    });
+
+
+    // fetches data from json file and add the markers based on the each elemnts coordinates to the map
+    fetch("dados_raulLino.json")
+        .then(response => response.json())
+        .then(json => {
+            json.data.forEach(element => {
+                L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map);
+            });
+        });
 };
 
 /**
@@ -70,4 +104,3 @@ function changeView(view) {
         map.invalidateSize();
     }
 }
-
