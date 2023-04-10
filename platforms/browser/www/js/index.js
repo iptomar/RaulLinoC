@@ -21,8 +21,16 @@
 let currView = "home";
 // holds map object
 let map, gpsPosition;
-
+//bool to control current status of the user location marker
 let markerExists = false;
+
+// convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
+// these coordinates were acquired without any study (eye estimation)
+const UPRIGHTCORNER = L.latLng(39.494334, -8.270672);
+const DOWNLEFTCORNER = L.latLng(39.419585, -8.105805);
+
+// use those coordinates to define the bounds of the map
+const bounds = L.latLngBounds(UPRIGHTCORNER, DOWNLEFTCORNER);
 
 // Wait for the deviceready event before using any of Cordova's device APIs.
 document.addEventListener('deviceready', onDeviceReady, false);
@@ -31,10 +39,12 @@ document.addEventListener('deviceready', onDeviceReady, false);
 function onDeviceReady() {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
+
 //loads current user location into gpsPosition global variable
 function onLocationFound(e) {
     gpsPosition = e.coords;
 }
+
 //if the current location couldn't be retrieved, logs an error message
 function onLocationError(e) {
     console.error("There was an error getting the current location.");
@@ -47,13 +57,6 @@ function onLocationError(e) {
  * @param {*} position coordinates of the user's location
  */
 function onSuccess(position) {
-    // convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
-    // these coordinates were acquired without any study (eye estimation)
-    const UPRIGHTCORNER = L.latLng(39.494334, -8.270672);
-    const DOWNLEFTCORNER = L.latLng(39.419585, -8.105805);
-
-    // use those coordinates to define the bounds of the map
-    const bounds = L.latLngBounds(UPRIGHTCORNER, DOWNLEFTCORNER);
 
     // create the map with
     map = L.map('map', {
@@ -69,6 +72,7 @@ function onSuccess(position) {
 
     // add the OpenStreetMap tiles (making the map usable)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
 
     //costum marker    
     const marker = L.icon({
@@ -87,7 +91,6 @@ function onSuccess(position) {
                 L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map);
             });
         });
-
 };
 
 /**
@@ -123,11 +126,6 @@ function changeView(view) {
  * Setup and refresh of the user location marker
  */
 function refreshUserMarker() {
-    
-    const UPRIGHTCORNER = L.latLng(39.494334, -8.270672);
-    const DOWNLEFTCORNER = L.latLng(39.419585, -8.105805);
-
-    const bounds = L.latLngBounds(UPRIGHTCORNER, DOWNLEFTCORNER);
 
     //creates the user icon to be added to the map
     var userIcon = L.icon({
@@ -143,8 +141,9 @@ function refreshUserMarker() {
         if (markerExists) {
             marker.setLatLng([gpsPosition.latitude, gpsPosition.longitude]);
         } else {
-            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], {icon: userIcon}).addTo(map)
-            .bindPopup('<strong> You are here.</strong>')    
+            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], {icon: userIcon})
+            .addTo(map)
+            .bindPopup('<strong> You are here.</strong>');   
             markerExists = true;
         }
     } else {
@@ -154,10 +153,12 @@ function refreshUserMarker() {
         }
     }       
 }
-//call the function every 10 seconds
-setInterval(refreshUserMarker, 10000)
 
+//call the refresh function every 5 seconds
+setInterval(refreshUserMarker, 5000);
+
+//gets user location every 5 seconds
 navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
-  maximumAge: 1000,
-  timeout: 2000
+    maximumAge: 1000,
+    timeout: 5000
 });
