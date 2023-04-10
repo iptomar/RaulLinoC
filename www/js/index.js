@@ -20,7 +20,9 @@
 // holds the view that is currently being displayed
 let currView = "home";
 // holds map object
-let map;
+let map, gpsPosition;
+//bool to control current status of the user location marker
+let markerExists = false;
 
 // Wait for the deviceready event before using any of Cordova's device APIs.
 document.addEventListener('deviceready', onDeviceReady, false);
@@ -28,6 +30,16 @@ document.addEventListener('deviceready', onDeviceReady, false);
 // Cordova is ready
 function onDeviceReady() {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+//loads current user location into gpsPosition global variable
+function onLocationFound(e) {
+    gpsPosition = e.coords;
+}
+
+//if the current location couldn't be retrieved, logs an error message
+function onLocationError(e) {
+    console.error("There was an error getting the current location.");
 }
 
 /**
@@ -51,9 +63,11 @@ function onSuccess(position) {
         maxZoom: 18,
         minZoom: 14,
     }).setView([position.coords.latitude, position.coords.longitude], 13);
-
+    
     // sets max bounds
     map.setMaxBounds(bounds);
+    //call onLocationFound when user location is found
+    map.on('locationfound', onLocationFound);
 
     // add the OpenStreetMap tiles (making the map usable)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -83,5 +97,52 @@ function changeView(view) {
     // if current view is map, loads map
     if (currView == "mapPage") {
         map.invalidateSize();
+        refreshUserMarker();
     }
 }
+
+
+/**
+ * Setup and refresh of the user location marker
+ */
+function refreshUserMarker() {
+    
+    const UPRIGHTCORNER = L.latLng(39.494334, -8.270672);
+    const DOWNLEFTCORNER = L.latLng(39.419585, -8.105805);
+
+    const bounds = L.latLngBounds(UPRIGHTCORNER, DOWNLEFTCORNER);
+
+    //creates the user icon to be added to the map
+    var userIcon = L.icon({
+        iconUrl: 'img/icons/userIcon.svg',
+
+        iconSize: [20, 40], // size of the icon
+        iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
+        popupAnchor: [0, -40] // point from which the popup should open relative to the iconAnchor
+    });
+
+    //if the user is within the defined bounds, adds or updates his current location into a marker, otherwise removes it if it exists
+    if (bounds.contains( new L.latLng(gpsPosition.latitude, gpsPosition.longitude))) {
+        if (markerExists) {
+            marker.setLatLng([gpsPosition.latitude, gpsPosition.longitude]);
+        } else {
+            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], {icon: userIcon}).addTo(map)
+            .bindPopup('<strong> You are here.</strong>')    
+            markerExists = true;
+        }
+    } else {
+        if (markerExists) {
+            map.removeLayer(marker);
+            markerExists = false;
+        }
+    }       
+}
+
+//call the refresh function every 10 seconds
+setInterval(refreshUserMarker, 10000)
+
+//gets user location every 5 seconds
+navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+    maximumAge: 1000,
+    timeout: 5000
+  });
