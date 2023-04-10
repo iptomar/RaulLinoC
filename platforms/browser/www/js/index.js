@@ -80,6 +80,8 @@ function onSuccess(position) {
         iconSize: [50, 50],
         //icon allignment set to bottom mid corner of the icon
         iconAnchor: [25, 50],
+        //popup allignment set to top mid corner of the icon
+        popupAnchor: [-5, -40]
     });
 
 
@@ -88,7 +90,7 @@ function onSuccess(position) {
         .then(response => response.json())
         .then(json => {
             json.data.forEach(element => {
-                L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map);
+                L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map).bindPopup(element.title);
             });
         });
 };
