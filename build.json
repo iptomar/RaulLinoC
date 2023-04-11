@@ -1,0 +1,20 @@
+{
+    "android": {
+        "debug": {
+            "keystore": "./raullino-key.jks",
+            "storePassword": "raullino",
+            "alias": "raulLinoKey",
+            "password" : "raullino",
+            "keystoreType": "jks",
+            "packageType": "apk"
+        },
+        "release": {
+            "keystore": "./raullino-key.jks",
+            "storePassword": "raullino",
+            "alias": "raulLinoKey",
+            "password" : "raullino",
+            "keystoreType": "jks",
+            "packageType": "bundle"
+        }
+    }
+}
