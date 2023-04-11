@@ -76,7 +76,7 @@ function onSuccess(position) {
 
     //costum marker    
     const marker = L.icon({
-        iconUrl: 'www\\img\\icons\\localizacao_verde.svg',
+        iconUrl: 'img\\icons\\localizacao_verde.svg',
         iconSize: [50, 50],
         //icon allignment set to bottom mid corner of the icon
         iconAnchor: [25, 50],
