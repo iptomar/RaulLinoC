@@ -8,4 +8,13 @@
     <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
+
+    <platform name="android">
+        <preference name="orientation" value="portrait" />
+    </platform>
+
+    <platform name="ios">
+    <preference name="Orientation" value="portrait" />
+</platform>
+
 </widget>
