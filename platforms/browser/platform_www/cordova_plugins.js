@@ -52,7 +52,8 @@ module.exports.metadata =
     "cordova-plugin-camera": "6.0.1-dev",
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-splashscreen": "6.0.2",
-    "cordova-plugin-whitelist": "1.3.4"
+    "cordova-plugin-whitelist": "1.3.4",
+    "cordova-plugin-locationservices-fix": "1.0.0"
 }
 // BOTTOM OF METADATA
 });
