@@ -8,7 +8,7 @@
   "author": "Raul Lino - Grupo C - 2022/2023",
   "icons": [
     {
-      "src": "\\\\img\\\\icons\\\\app_logo.svg",
+      "src": "app_logo.svg",
       "type": "image/png",
       "sizes": "undefinedxundefined"
     }
