@@ -109,12 +109,17 @@ function onError(error) {
  * @param {*} view view to be displayed
  */
 function changeView(view) {
+    //hides last view
     let currViewElem = document.getElementById(currView).style.display = "none";
-
+    //resets last view line color
+    document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
     //sets current view 
     currView = view;
 
+    //shows new view
     currViewElem = document.getElementById(currView).style.display = "block";
+    //sets new view line color
+    document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
 
     // if current view is map, loads map
     if (currView == "mapPage") {
