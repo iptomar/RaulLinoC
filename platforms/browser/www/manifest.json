@@ -3,12 +3,12 @@
   "display": "standalone",
   "name": "Raul Lino",
   "short_name": "Raul Lino",
-  "version": "io.cordova.hellocordova",
+  "version": "com.example.raullino",
   "description": "Um itinerário pelo património",
   "author": "Raul Lino - Grupo C - 2022/2023",
   "icons": [
     {
-      "src": "www/css/img/app_logo.svg",
+      "src": "res/app_logo.png",
       "type": "image/png",
       "sizes": "undefinedxundefined"
     }
