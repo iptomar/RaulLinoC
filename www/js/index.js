@@ -26,8 +26,8 @@ let markerExists = false;
 
 // convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
 // these coordinates were acquired without any study (eye estimation)
-const UPLEFTCORNER = L.latLng(39.509396, -8.263140);
-const DOWNRIGHTCORNER = L.latLng(39.402366, -8.169918);
+const UPLEFTCORNER = L.latLng(39.510042, -8.296089);
+const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 
 // use those coordinates to define the bounds of the map
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
