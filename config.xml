@@ -13,18 +13,18 @@
 
     <platform name="android">
         <preference name="orientation" value="portrait" />
-        <splash src="www/img/app_logo.svg"/>
+        <splash src="res/app_logo.png"/>
     </platform>
 
     <platform name="browser">
         <preference name="orientation" value="portrait" />
-        <preference name="SplashScreen" value="www/img/app_logo.svg" />
+        <preference name="SplashScreen" value="res/app_logo.png" />
         <preference name="SplashScreenBackgroundColor" value="white" /> 
     </platform>
 
     <platform name="ios">
         <preference name="Orientation" value="portrait" />
-        <splash src="www/img/app_logo.svg"/>
+        <splash src="res/app_logo.png"/>
 </platform>
 
 </widget>
