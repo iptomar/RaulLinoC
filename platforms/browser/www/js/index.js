@@ -111,9 +111,6 @@ function onError(error) {
  * @param {*} view view to be displayed
  */
 function changeView(view) {
-    console.log("Current view is " + currView);
-    console.log("Changing view to " + view);
-
     //hides last view
     var currViewElem = document.getElementById(currView);
     currViewElem.style.display = "none";
@@ -186,5 +183,40 @@ navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
  * @param {*} id id of the point
  */
 function pointsDescription(id) {
+    var aux = '';
+    fetch("dados_raulLino.json")
+        .then(response => response.json())
+        .then(json => {
+            aux += '<div class="container">';
+            aux += '<h1 class="display-6">' + json.data[id].title + '</h1><br />';
+            aux += '<p>' + json.data[id].info + '</p>';
+            aux += '<p>Ano: ' + json.data[id].year + '</p>';
+            aux += '<p>Morada: ' + json.data[id].location + '</p>';
+            aux += '<p>Tipo de Edifício: ' + json.data[id].type + '</p>';
+
+            // aux += '<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">';
+            // aux += '<div class="carousel-inner">';
+            aux += '<div>';
+            json.data[id].images.forEach(element => {
+                // aux += '<center><div class="carousel-item active" >';
+                aux += '<img  style="max-width:1000px; max-height:800px;" src="' + element + '" class="d-block w-100" ><br />';
+                
+            });
+            aux += '</div>';
+            // aux += '</div>' +
+            //     '<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"' +
+            //     'data-bs-slide="prev">' +
+            //     '<span class="carousel-control-prev-icon" aria-hidden="true"></span>' +
+            //     '<span class="visually-hidden">Previous</span>' +
+            //     '</button>' +
+            //     '<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"' +
+            //     'data-bs-slide="next">' +
+            //     '<span class="carousel-control-next-icon" aria-hidden="true"></span>' +
+            //     '<span class="visually-hidden">Next</span>' +
+            //     '</button>' +
+            //     '</div>';
+            aux += '</div>';
+            document.getElementById("iterPDesc").innerHTML = aux;
+        });
     changeView("desc");
 }
