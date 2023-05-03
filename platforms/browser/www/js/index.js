@@ -111,11 +111,16 @@ function onError(error) {
  * @param {*} view view to be displayed
  */
 function changeView(view) {
+    console.log("Current view is " + currView);
+    console.log("Changing view to " + view);
+
     //hides last view
     var currViewElem = document.getElementById(currView);
     currViewElem.style.display = "none";
     //resets last view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
+    }
     //sets current view 
     currView = view;
 
@@ -123,8 +128,9 @@ function changeView(view) {
     currViewElem = document.getElementById(currView);
     currViewElem.style.display = "";
     //sets new view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
-
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
+    }
     // if current view is map, loads map
     if (currView == "mapPage") {
         map.invalidateSize();
