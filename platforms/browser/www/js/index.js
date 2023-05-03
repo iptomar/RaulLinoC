@@ -26,8 +26,8 @@ let markerExists = false;
 
 // convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
 // these coordinates were acquired without any study (eye estimation)
-const UPLEFTCORNER = L.latLng(39.509396, -8.263140);
-const DOWNRIGHTCORNER = L.latLng(39.402366, -8.169918);
+const UPLEFTCORNER = L.latLng(39.510042, -8.296089);
+const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 
 // use those coordinates to define the bounds of the map
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
@@ -64,7 +64,7 @@ function onSuccess(position) {
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
-    
+
     // sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
@@ -90,7 +90,9 @@ function onSuccess(position) {
         .then(response => response.json())
         .then(json => {
             json.data.forEach(element => {
-                L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map).bindPopup(element.title);
+                L.marker([element.coords[0], element.coords[1]], { icon: marker })
+                    .addTo(map)
+                    .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
             });
         });
 };
@@ -110,14 +112,16 @@ function onError(error) {
  */
 function changeView(view) {
     //hides last view
-    let currViewElem = document.getElementById(currView).style.display = "none";
+    var currViewElem = document.getElementById(currView);
+    currViewElem.style.display = "none";
     //resets last view line color
     document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
     //sets current view 
     currView = view;
 
     //shows new view
-    currViewElem = document.getElementById(currView).style.display = "block";
+    currViewElem = document.getElementById(currView);
+    currViewElem.style.display = "";
     //sets new view line color
     document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
 
@@ -144,13 +148,13 @@ function refreshUserMarker() {
     });
 
     //if the user is within the defined bounds, adds or updates his current location into a marker, otherwise removes it if it exists
-    if (bounds.contains( new L.latLng(gpsPosition.latitude, gpsPosition.longitude))) {
+    if (bounds.contains(new L.latLng(gpsPosition.latitude, gpsPosition.longitude))) {
         if (markerExists) {
             marker.setLatLng([gpsPosition.latitude, gpsPosition.longitude]);
         } else {
-            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], {icon: userIcon})
-            .addTo(map)
-            .bindPopup('<strong> You are here.</strong>');   
+            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], { icon: userIcon })
+                .addTo(map)
+                .bindPopup('<strong> You are here.</strong>');
             markerExists = true;
         }
     } else {
@@ -158,7 +162,7 @@ function refreshUserMarker() {
             map.removeLayer(marker);
             markerExists = false;
         }
-    }       
+    }
 }
 
 //call the refresh function every 5 seconds
@@ -169,3 +173,12 @@ navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
     maximumAge: 1000,
     timeout: 5000
 });
+
+/**
+ * Creates a new page with the description of the point
+ * 
+ * @param {*} id id of the point
+ */
+function pointsDescription(id) {
+    changeView("desc");
+}
