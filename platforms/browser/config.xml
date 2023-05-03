@@ -2,7 +2,7 @@
 <widget android-versionCode="10" defaultlocale="en-US" id="com.example.raullino" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Raul Lino</name>
     <description>Um itinerário pelo património</description>
-    <icon src="res/app_logo.png" />
+    <icon src="res/app_logo_no_letters.png" />
     <author>
         Raul Lino - Grupo C - 2022/2023
     </author>
