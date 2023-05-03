@@ -42,11 +42,11 @@ document.addEventListener('deviceready', function () {
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
             } else {
                 console.log("Permission denied.");
-                onError("Permission denied.");
+                onError("Permission denied. Permission needede for the app run correctly.\nPlease allow acess to location in device settings.");
             }
         }, function (error) {
             console.error("The following error occurred: " + error);
-            alert("The following error occurred: " + error.code + " - " + error.message);
+            alert("\nThe following error occurred: " + error.code + " - " + error.message);
         }, false
     );
 }, false);
@@ -107,7 +107,7 @@ function onSuccess(position) {
 
     //call the refresh function every 5 seconds
     setInterval(refreshUserMarker, 5000);
-    
+
     //update user coords every 5 seconds
     navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
         maximumAge: 1000,

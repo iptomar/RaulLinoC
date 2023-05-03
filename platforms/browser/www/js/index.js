@@ -33,20 +33,22 @@ const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
 //ask for geolocation permission
-document.addEventListener('deviceready', function(){
+document.addEventListener('deviceready', function () {
     cordova.plugins.diagnostic.requestLocationAuthorization(
-        function(status){
+        function (status) {
             //different possibilites of permission success, need to check all of them
-            if(status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE){
+            if (status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
                 console.log("Permission granted.");
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-            }else{
+            } else {
                 console.log("Permission denied.");
+                onError("Permission denied.");
             }
-        }, function(error){
-            console.error("The following error occurred: "+error);
+        }, function (error) {
+            console.error("The following error occurred: " + error);
+            alert("The following error occurred: " + error.code + " - " + error.message);
         }, false
-    );  
+    );
 }, false);
 
 //loads current user location into gpsPosition global variable
@@ -73,7 +75,7 @@ function onSuccess(position) {
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
-    
+
     // sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
@@ -118,7 +120,9 @@ function onSuccess(position) {
  * @param {*} error 
  */
 function onError(error) {
-    console.log('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+    alert("There was an error getting the current location. Please turn on your location.");
+    console.log("error code:" + error.code);
+    console.log("error message:" + error.message);
 }
 
 /**
@@ -162,13 +166,13 @@ function refreshUserMarker() {
     });
 
     //if the user is within the defined bounds, adds or updates his current location into a marker, otherwise removes it if it exists
-    if (bounds.contains( new L.latLng(gpsPosition.latitude, gpsPosition.longitude))) {
+    if (bounds.contains(new L.latLng(gpsPosition.latitude, gpsPosition.longitude))) {
         if (markerExists) {
             marker.setLatLng([gpsPosition.latitude, gpsPosition.longitude]);
         } else {
-            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], {icon: userIcon})
-            .addTo(map)
-            .bindPopup('<strong> You are here.</strong>');   
+            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], { icon: userIcon })
+                .addTo(map)
+                .bindPopup('<strong> You are here.</strong>');
             markerExists = true;
         }
     } else {
@@ -176,5 +180,5 @@ function refreshUserMarker() {
             map.removeLayer(marker);
             markerExists = false;
         }
-    }       
+    }
 }
