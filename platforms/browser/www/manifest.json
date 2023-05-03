@@ -1,11 +1,18 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "HelloCordova",
-  "short_name": "HelloCordova",
-  "version": "io.cordova.hellocordova",
-  "description": "Sample Apache Cordova App",
-  "author": "Apache Cordova Team",
-  "icons": [],
+  "name": "Raul Lino",
+  "short_name": "Raul Lino",
+  "version": "com.example.raullino",
+  "description": "Um itinerário pelo património",
+  "author": "Raul Lino - Grupo C - 2022/2023",
+  "icons": [
+    {
+      "src": "res/app_logo_no_letters.png",
+      "type": "image/png",
+      "sizes": "undefinedxundefined"
+    }
+  ],
+  "orientation": "portrait",
   "start_url": "index.html"
 }

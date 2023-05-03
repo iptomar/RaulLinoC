@@ -43,27 +43,32 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/leaflet.css">
-    <title>Hello World</title>
+    <title>Raul Lino</title>
+    <link rel="shortcut icon" type="image/png" href="res/app_logo_no_letters.png">
 </head>
 <!-- loads website with home view -->
 
 <body onload="changeView('home')">
     <div>
-        <nav class="navbar fixed-bottom navbar-expand-md">
+        <nav class="navbar fixed-bottom navbar-expand-md" style="background-color: #FFFFFF;">
             <ul class="navbar-nav mx-auto" style="flex-direction: row;">
                 <li class="nav-item">
+                    <hr id="homeLine" style="background-color: #e2d301; height: 2px;" />
                     <a class="navbar-brand" href="#" onclick="changeView('home')" style="cursor:pointer;"><img
                             src="img/icons/home.svg" style="height:50px; width:50px" /></a>
                 </li>
                 <li class="nav-item">
+                    <hr id="bioLine" style="background-color: #FFFFFF; height: 2px;" />
                     <a class="navbar-brand" href="#" onclick="changeView('bio')" style="cursor:pointer;"><img
                             src="img/icons/nota_biografica.svg" style="height:50px; width:50px" /></a>
                 </li>
                 <li class="nav-item">
+                    <hr id="mapPageLine" style="background-color: #FFFFFF; height: 2px;" />
                     <a class="navbar-brand" href="#" onclick="changeView('mapPage')" style="cursor:pointer;"><img
                             src="img/icons/mapa.svg" style="height:50px; width:50px" /></a>
                 </li>
                 <li class="nav-item">
+                    <hr id="augRealLine" style="background-color: #FFFFFF; height: 2px;" />
                     <a class="navbar-brand" href="#" onclick="changeView('augReal')" style="cursor:pointer;"><img
                             src="img/icons/realidade_aumentada.svg" style="height:50px; width:50px" /></a>
                 </li>
@@ -71,17 +76,38 @@
         </nav>
         <!-- home view -->
         <div id="home" class="pag" style="display: none;">
-            <h1>Home</h1>
+            <div class="title-container">
+                <h2 class="class-font" style="font-size: 36px;">Itinerario</h2>
+                <h3 class="class-font" style="font-size: 24px;">Raul Lino</h3>
+            </div>
+            <hr style="background-color: #e2d301; height: 2px;" />
+            <p class="text-left, class-font" style="margin-left: 10px; font-size: 20px;">Home</p>
+            <div class="pr-3 pl-3">
+                <p style="text-align: justify;">Este projeto foi desenvolvido no âmbito da Unidade Curricular de 
+                    Gestão de Projetos da licenciatura em Engenharia Informática,
+                    ano letivo 2022/2023, na Escola Superior de Tecnologia de Tomar do Instituto Politécnico de Tomar, 
+                    pelo grupo C constituido pelos alunos Daniel Graça, Ana Grácio, Marcelo Matos, António Neves, André Almeida e Alix Carmo. 
+                </p>
+                <p style="text-align: justify;">O projeto apresentado identifica, localiza, analisa, 
+                    interpreta e sistematiza os projetos de arquitetura de Raul Lino que foram construídos no concelho de Abrantes, 
+                    contribuindo para aprofundar o conhecimento da sua obra.
+                </p>
+                <p style="text-align: justify;">Esse mesmo conhecimento é, assim, acessível ao público, 
+                    através do desenvolvimento deste produto que envolve reduzidos efeitos nocivos ao meio ambiente, 
+                    e cujo funcionamento é compatível com dispositivos móveis amplamente utilizados na sociedade atual, 
+                    permitindo um fácil acesso à informação, a qualquer hora e em qualquer lugar.
+                </p>
+            </div>
         </div>
         <!-- biography view -->
         <div id="bio" class="pag" style="display: none;">
             <div>
                 <div class="title-container">
-                    <h2>Itinerário</h2>
-                    <h3>Raul Lino</h3>
+                    <h2 class="class-font" style="font-size: 36px;">Itinerario</h2>
+                    <h3 class="class-font" style="font-size: 24px;">Raul Lino</h3>
                 </div>
                 <hr style="background-color: #e2d301; height: 2px;" />
-                <p class="text-left" style="margin-left: 10px">Nota Biográfica</p>
+                <p class="text-left, class-font" style="margin-left: 10px; font-size: 20px;">Nota Biografica</p>
                 <div>
                     <div class="text-center">
                         <img style="width:50%; height:50%;" src="img/raul-lino.jpg" />
@@ -117,11 +143,11 @@
         <div id="mapPage" class="pag" style="display: none;">
             <div>
                 <div class="title-container">
-                    <h2>Itinerário</h2>
-                    <h3>Raul Lino</h3>
+                    <h2 class="class-font" style="font-size: 36px;">Itinerario</h2>
+                    <h3 class="class-font" style="font-size: 24px;">Raul Lino</h3>
                 </div>
                 <hr style="background-color: #e2d301; height: 2px;" />
-                <p class="text-left" style="margin-left: 10px">MAPA</p>
+                <p class="text-left, class-font"style="margin-left: 10px; font-size: 20px">MAPA</p>
                 <div id="mapContainer">
                     <div id="map" style="opacity: 1;"></div>
                 </div>
@@ -129,7 +155,7 @@
         </div>
         <!-- augmented reality view -->
         <div id="augReal" class="pag" style="display: none;">
-            <h1>Realidade Aumentada</h1>
+            <h1 class="class-font">Realidade Aumentada</h1>
         </div>
     </div>
     <script src="js/leaflet.js"></script>

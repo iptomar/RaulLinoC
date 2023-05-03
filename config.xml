@@ -1,10 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets"
-    xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>HelloCordova</name>
-    <description>Sample Apache Cordova App</description>
-    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
-        Apache Cordova Team
+
+<widget android-versionCode="10" defaultlocale="en-US" id="com.example.raullino" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Raul Lino</name>
+    <description>Um itinerário pelo património</description>
+    <icon src="res/app_logo_no_letters.png" />
+    <author>
+        Raul Lino - Grupo C - 2022/2023
     </author>
     <content src="index.html" />
     <allow-intent href="http://*/*" />
@@ -12,23 +13,18 @@
 
     <platform name="android">
         <preference name="orientation" value="portrait" />
-        <!-- Add the market intent filter inside the android platform element -->
-        <allow-intent href="market:*" />
-        <config-file parent="/manifest" target="AndroidManifest.xml">
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-            <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-        </config-file>
+        <splash src="res/app_logo.png"/>
+    </platform>
+
+    <platform name="browser">
+        <preference name="orientation" value="portrait" />
+        <preference name="SplashScreen" value="res/app_logo.png" />
+        <preference name="SplashScreenBackgroundColor" value="white" /> 
     </platform>
 
     <platform name="ios">
         <preference name="Orientation" value="portrait" />
-        <config-file platform="ios" target="*-Info.plist">
-            <!-- Use the NSLocationWhenInUseUsageDescription key for when the app is in use -->
-            <string>My App needs access to your location when using the app.</string>
-            <!-- Use the NSLocationUsageDescription key as a general description for location-based
-            services -->
-            <string>My App needs access to your location to provide location-based services.</string>
-        </config-file>
-    </platform>
+        <splash src="res/app_logo.png"/>
+</platform>
+
 </widget>
