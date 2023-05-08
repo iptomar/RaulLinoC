@@ -41,11 +41,13 @@
 <body>
     <!-- fixed navbar -->
     <nav class="w-100 navbar navbar-expand-md fixed-top pb-1" style="background-color: #f3f4f6;">
-        <div class="w-100 title-container">
-            <h1 id="main-title">Itinerario</h1>
-            <h2 id="raul-lino-title">Raul Lino</h2>
+        <div class="w-100 flex-column">
+            <div class="w-100 title-container">
+                <h1 id="main-title">Itinerario</h1>
+                <h2 id="raul-lino-title">Raul Lino</h2>
+            </div>
+            <hr class="w-100 yellow-divisor p-0 m-0"/>
         </div>
-        <hr class="w-100 yellow-divisor p-0 m-0"/>
     </nav>
 
     <!-- content page -->
@@ -79,7 +81,7 @@
             <h1 class="page-title">Nota Biografica</h1>
             <div>
                 <div class="text-center">
-                    <img style="width:50%; height:50%;" src="img/raul-lino.jpg" />
+                    <img id="bio-img" src="img/raul-lino.jpg" />
                 </div>
                 <div class="mt-2">
                     <p>
@@ -127,27 +129,27 @@
     <footer class="w-100 fixed-bottom pt-0" style="background-color: #f3f4f6;">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col p-0 flex-column d-flex align-items-center">
+                <div class="navigator col p-0 flex-column d-flex align-items-center">
                     <hr id="homeLine" class="transparent-divisor" />
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('home')">
+                    <a href="#" class="navbar-brand d-flex align-items-center" onclick="changeView('home')">
                         <img class="navigator-icons" src="img/icons/home.svg" />
                     </a>
                 </div>
-                <div class="col p-0 flex-column d-flex align-items-center">
+                <div class="navigator col p-0 flex-column d-flex align-items-center">
                     <hr id="bioLine" class="transparent-divisor" />
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('bio')">
+                    <a href="#" class="navbar-brand d-flex align-items-center" onclick="changeView('bio')">
                         <img class="navigator-icons" src="img/icons/nota_biografica.svg" />
                     </a>
                 </div>
-                <div class="col p-0 flex-column d-flex align-items-center">
+                <div class="navigator col p-0 flex-column d-flex align-items-center">
                     <hr id="mapPageLine" class="transparent-divisor" />
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('mapPage')">
+                    <a href="#" class="navbar-brand d-flex align-items-center" onclick="changeView('mapPage')">
                         <img class="navigator-icons" src="img/icons/mapa.svg" />
                     </a>
                 </div>
-                <div class="col p-0 flex-column d-flex align-items-center">
+                <div class="navigator col p-0 flex-column d-flex align-items-center">
                     <hr id="augRealLine" class="transparent-divisor"/>
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('augReal')">
+                    <a href="#" class="navbar-brand d-flex align-items-center" onclick="changeView('augReal')">
                         <img class="navigator-icons" src="img/icons/realidade_aumentada.svg" />
                     </a>
                 </div>

@@ -78,7 +78,16 @@ a {
     width: 50px;
 }
 
+.navigator:hover {
+    background-color: #d1d5db;
+}
+
 /* identifiers */
+#bio-img {
+    height: 50px;
+    width: 50px;
+}
+
 #content {
     margin-left: 12px;
 }
