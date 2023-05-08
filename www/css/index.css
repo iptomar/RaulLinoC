@@ -19,6 +19,14 @@
 /* * { */
     /* -webkit-tap-highlight-color: rgba(0,0,0,0); make transparent link selection, adjust last value opacity 0 to 1.0 */
 /* } */
+@font-face {
+    font-family: "RaulLinoFonte";
+    src: url("/www/RaulLinoFonte.ttf");
+}
+
+.class-font {
+    font-family: 'RaulLinoFonte';
+}
 
 body {
     /* -webkit-touch-callout: none;                prevent callout to copy image, etc when tap to hold */
@@ -26,7 +34,7 @@ body {
     /* -webkit-user-select: none;                  prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#FFFFFF;
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    font-size:12px;
+    /* font-size:12px; */
     /* height:100vh; */
     /* margin:0px; */
     /* padding:0px; */
@@ -130,15 +138,13 @@ h1 {
     padding:0px;
     text-align:center;
 }
-  
+
 h2 {
     font-size: 24px;
 }
-  
+
 h3 {
     font-size: 18px;
     margin-left: auto;
     color: #04c263;
 }
-
-  
