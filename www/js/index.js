@@ -17,6 +17,11 @@
  * under the License.
  */
 
+// when page is loaded, loads home view
+window.onload = () => {
+    changeView('home');
+}
+
 // holds the view that is currently being displayed
 let currView = "home";
 // holds map object
@@ -127,17 +132,29 @@ function onError(error) {
  * @param {*} view view to be displayed
  */
 function changeView(view) {
+    let currViewElem = document.getElementById(currView);
+
     //hides last view
-    let currViewElem = document.getElementById(currView).style.display = "none";
+    currViewElem.style.display = "none";
+
     //resets last view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").classList.remove('yellow-divisor');
+        document.getElementById(currView + "Line").classList.add('transparent-divisor');
+    }
+
     //sets current view 
     currView = view;
 
     //shows new view
-    currViewElem = document.getElementById(currView).style.display = "block";
+    currViewElem = document.getElementById(currView);
+    currViewElem.style.display = "";
+
     //sets new view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").classList.remove('transparent-divisor');
+        document.getElementById(currView + "Line").classList.add('yellow-divisor');
+    }
 
     // if current view is map, loads map
     if (currView == "mapPage") {
