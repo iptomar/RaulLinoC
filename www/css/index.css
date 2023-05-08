@@ -78,10 +78,6 @@ a {
     width: 50px;
 }
 
-.navigator:hover {
-    background-color: #d1d5db;
-}
-
 /* identifiers */
 #bio-img {
     /* for mobile */
