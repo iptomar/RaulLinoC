@@ -40,10 +40,10 @@
 <!-- loads website with home view -->
 <body>
     <!-- fixed navbar -->
-    <nav class="w-100 navbar navbar-expand-md fixed-top bg-white pb-1">
+    <nav class="w-100 navbar navbar-expand-md fixed-top pb-1" style="background-color: #f3f4f6;">
         <div class="w-100 title-container">
-            <h2 style="font-size: 36px;">Itinerario</h2>
-            <h3 style="font-size: 24px;">Raul Lino</h3>
+            <h1 id="main-title">Itinerario</h1>
+            <h2 id="raul-lino-title">Raul Lino</h2>
         </div>
         <hr class="w-100 yellow-divisor p-0 m-0"/>
     </nav>
@@ -51,19 +51,22 @@
     <!-- content page -->
     <div>
         <!-- home view -->
-        <div id="home" class="pag" style="display: none;">
-            <p class="text-left" style="margin-left: 10px; font-size: 20px;">Home</p>
-            <div class="pr-3 pl-3">
-                <p>Este projeto foi desenvolvido no âmbito da Unidade Curricular de 
+        <div id="home" class="px-3" style="display: none;">
+            <h1 class="page-title">Home</h1>
+            <div>
+                <p>
+                    Este projeto foi desenvolvido no âmbito da Unidade Curricular de 
                     Gestão de Projetos da licenciatura em Engenharia Informática,
                     ano letivo 2022/2023, na Escola Superior de Tecnologia de Tomar do Instituto Politécnico de Tomar, 
                     pelo grupo C constituido pelos alunos Daniel Graça, Ana Grácio, Marcelo Matos, António Neves, André Almeida e Alix Carmo. 
                 </p>
-                <p>O projeto apresentado identifica, localiza, analisa, 
+                <p>
+                    O projeto apresentado identifica, localiza, analisa, 
                     interpreta e sistematiza os projetos de arquitetura de Raul Lino que foram construídos no concelho de Abrantes, 
                     contribuindo para aprofundar o conhecimento da sua obra.
                 </p>
-                <p>Esse mesmo conhecimento é, assim, acessível ao público, 
+                <p>
+                    Esse mesmo conhecimento é, assim, acessível ao público, 
                     através do desenvolvimento deste produto que envolve reduzidos efeitos nocivos ao meio ambiente, 
                     e cujo funcionamento é compatível com dispositivos móveis amplamente utilizados na sociedade atual, 
                     permitindo um fácil acesso à informação, a qualquer hora e em qualquer lugar.
@@ -72,16 +75,15 @@
         </div>
 
         <!-- biography view -->
-        <div id="bio" class="pag" style="display: none;">
-            <p class="text-left" style="margin-left: 10px; font-size: 20px;">Nota Biografica</p>
+        <div id="bio" class="px-3" style="display: none;">
+            <h1 class="page-title">Nota Biografica</h1>
             <div>
                 <div class="text-center">
                     <img style="width:50%; height:50%;" src="img/raul-lino.jpg" />
                 </div>
-                <br />
-                <br />
-                <div class="pr-3 pl-3">
-                    <p>Raul Lino da Silva foi uma das grandes figuras da
+                <div class="mt-2">
+                    <p>
+                        Raul Lino da Silva foi uma das grandes figuras da
                         arquitetura lusitana com bastantes obras em Abrantes, das quais a mais conhecida é a
                         Assembleia
                         de Abrantes. Uma personalidade única no que se refere ao panorama das artes em Portugal,
@@ -91,60 +93,62 @@
                         europeias do início do século. Também é importante referir que apesar do seu leque de
                         projetos,
                         ele também foi um homem com uma vasta obra teórica ou escrita, o que se tornou muito
-                        determinante, para os seus seguidores aos longo de décadas em Portugal.</p>
-                    <br />
-                    <p>Ao longo dos seus 70 anos de artista e arquiteto,
+                        determinante, para os seus seguidores aos longo de décadas em Portugal.
+                    </p>
+                    <p class="mt-1">
+                        Ao longo dos seus 70 anos de artista e arquiteto,
                         defendeu a
                         tradição na conceção das formas, afirmando que a arte e a arquitetura são elas também um
                         produto
                         do homem e para os homens, com história, genealogia, características e funcionalidades
                         próprias
                         do espaço e do tempo em que se inserem e da comunidade para que são produzidas. É, assim, um
-                        defensor da tradição versus modernismo ou um modernista da tradição.</p>
+                        defensor da tradição versus modernismo ou um modernista da tradição.
+                    </p>
                 </div>
             </div>
         </div>
         
         <!-- map view-->
-        <div id="mapPage" class="pag" style="display: none;">
-            <p class="text-left" style="margin-left: 10px; font-size: 20px">Mapa</p>
+        <div id="mapPage" style="display: none;">
+            <h1 class="page-title px-3">Mapa</h1>
             <div id="mapContainer">
                 <div id="map" style="opacity: 1;"></div>
             </div>
         </div>
 
         <!-- augmented reality view -->
-        <div id="augReal" class="pag" style="display: none;">
-            <h1>Realidade Aumentada</h1>
+        <div id="augReal" style="display: none;">
+            <h1 class="page-title px-3">Realidade Aumentada</h1>
         </div>
     </div>
 
     <!-- fixed footer -->
-    <footer class="w-100 fixed-bottom bg-white pt-0">
+    <footer class="w-100 fixed-bottom pt-0" style="background-color: #f3f4f6;">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col p-0 flex-column d-flex align-items-center">
                     <hr id="homeLine" class="transparent-divisor" />
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('home')" style="cursor: pointer;">
-                        <img src="img/icons/home.svg" style="height: 50px; width: 50px" />
+                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('home')">
+                        <img class="navigator-icons" src="img/icons/home.svg" />
                     </a>
                 </div>
                 <div class="col p-0 flex-column d-flex align-items-center">
                     <hr id="bioLine" class="transparent-divisor" />
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('bio')" style="cursor: pointer;">
-                        <img src="img/icons/nota_biografica.svg" style="height: 50px; width: 50px" />
+                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('bio')">
+                        <img class="navigator-icons" src="img/icons/nota_biografica.svg" />
                     </a>
                 </div>
                 <div class="col p-0 flex-column d-flex align-items-center">
                     <hr id="mapPageLine" class="transparent-divisor" />
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('mapPage')" style="cursor: pointer;">
-                        <img src="img/icons/mapa.svg" style="height: 50px; width: 50px" />
+                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('mapPage')">
+                        <img class="navigator-icons" src="img/icons/mapa.svg" />
                     </a>
                 </div>
                 <div class="col p-0 flex-column d-flex align-items-center">
                     <hr id="augRealLine" class="transparent-divisor"/>
-                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('augReal')" style="cursor: pointer;">
-                        <img src="img/icons/realidade_aumentada.svg" style="height: 50px; width: 50px;" />
+                    <a class="navbar-brand d-flex align-items-center" href="#" onclick="changeView('augReal')">
+                        <img class="navigator-icons" src="img/icons/realidade_aumentada.svg" />
                     </a>
                 </div>
             </div>

@@ -22,28 +22,65 @@
     src: url("../RaulLinoFonte.ttf");
 }
 
+/* elements */
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     user-select: none;                          /* required to use webkit-user-select */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#FFFFFF;
+    background-color: #f3f4f6;
     font-family: 'RaulLinoFonte', system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    text-transform: uppercase;
-    padding-top: 80px;
+    padding-top: 88px;
     padding-bottom: 80px;
 }
 
+p {
+    text-align: justify;
+    font-size: 22px;
+}
+
+a {
+    cursor: pointer;
+}
+
+/* classes */
 .yellow-divisor {
     background-color: #e2d301;
     height: 2px;
     width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 .transparent-divisor {
     background-color: transparent;
     height: 2px;
     width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px 0 10px;
+}
+
+.page-title {
+    text-align: left;
+    font-size: 28px;
+}
+
+.navigator-icons {
+    height: 50px;
+    width: 50px;
+}
+
+/* identifiers */
+#content {
+    margin-left: 12px;
 }
 
 #map {
@@ -56,33 +93,11 @@ body {
     height: 70vh;
 }
 
-.title-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 10px 0 10px;
+#main-title {
+    font-size: 48px;
 }
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
-
-h2 {
-    font-size: 24px;
-}
-
-h3 {
-    font-size: 18px;
-    margin-left: auto;
+#raul-lino-title{
+    font-size: 32px;
     color: #04c263;
-}
-
-p {
-    text-align: justify;
 }
