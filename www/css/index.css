@@ -84,14 +84,25 @@ a {
 
 /* identifiers */
 #bio-img {
-    /* for mobile */
-    @media (max-width: 767px) {
+
+    @media (max-width: 300px) {
+        height: 100px;
+    }
+
+    @media (min-width: 300px) {
+        height: 150px;
+    }
+
+    @media (min-width: 820px) {
         height: 175px;
     }
 
-    /* for desktop */
-    @media (min-width: 1025px) {
+    @media (min-width: 1024px) {
         height: 250px;
+    }
+
+    @media (min-width: 2048px) {
+        height: 400px;
     }
 }
 
