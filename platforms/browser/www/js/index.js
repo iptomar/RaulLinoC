@@ -26,19 +26,28 @@ let markerExists = false;
 
 // convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
 // these coordinates were acquired without any study (eye estimation)
-const UPLEFTCORNER = L.latLng(39.509396, -8.263140);
-const DOWNRIGHTCORNER = L.latLng(39.402366, -8.169918);
+const UPLEFTCORNER = L.latLng(39.510042, -8.296089);
+const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 
 // use those coordinates to define the bounds of the map
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
-// Wait for the deviceready event before using any of Cordova's device APIs.
-document.addEventListener('deviceready', onDeviceReady, false);
-
-// Cordova is ready
-function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-}
+//ask for geolocation permission
+document.addEventListener('deviceready', function(){
+    cordova.plugins.diagnostic.requestLocationAuthorization(
+        function(status){
+            //different possibilites of permission success, need to check all of them
+            if(status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE){
+                console.log("Permission granted.");
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            }else{
+                console.log("Permission denied.");
+            }
+        }, function(error){
+            console.error("The following error occurred: "+error);
+        }, false
+    );  
+}, false);
 
 //loads current user location into gpsPosition global variable
 function onLocationFound(e) {
@@ -57,14 +66,14 @@ function onLocationError(e) {
  * @param {*} position coordinates of the user's location
  */
 function onSuccess(position) {
-
+    console.log("Starting map loading.")
     // create the map with
     map = L.map('map', {
         center: [position.coords.latitude, position.coords.longitude],
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
-    
+
     // sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
@@ -90,9 +99,20 @@ function onSuccess(position) {
         .then(response => response.json())
         .then(json => {
             json.data.forEach(element => {
-                L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map).bindPopup(element.title);
+                L.marker([element.coords[0], element.coords[1]], { icon: marker })
+                    .addTo(map)
+                    .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
             });
         });
+
+    //call the refresh function every 5 seconds
+    setInterval(refreshUserMarker, 5000);
+    
+    //update user coords every 5 seconds
+    navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+        maximumAge: 1000,
+        timeout: 5000
+    });
 };
 
 /**
@@ -110,17 +130,22 @@ function onError(error) {
  */
 function changeView(view) {
     //hides last view
-    let currViewElem = document.getElementById(currView).style.display = "none";
+    var currViewElem = document.getElementById(currView);
+    currViewElem.style.display = "none";
     //resets last view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
+    }
     //sets current view 
     currView = view;
 
     //shows new view
-    currViewElem = document.getElementById(currView).style.display = "block";
+    currViewElem = document.getElementById(currView);
+    currViewElem.style.display = "";
     //sets new view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
-
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
+    }
     // if current view is map, loads map
     if (currView == "mapPage") {
         map.invalidateSize();
@@ -144,13 +169,13 @@ function refreshUserMarker() {
     });
 
     //if the user is within the defined bounds, adds or updates his current location into a marker, otherwise removes it if it exists
-    if (bounds.contains( new L.latLng(gpsPosition.latitude, gpsPosition.longitude))) {
+    if (bounds.contains(new L.latLng(gpsPosition.latitude, gpsPosition.longitude))) {
         if (markerExists) {
             marker.setLatLng([gpsPosition.latitude, gpsPosition.longitude]);
         } else {
-            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], {icon: userIcon})
-            .addTo(map)
-            .bindPopup('<strong> You are here.</strong>');   
+            marker = L.marker([gpsPosition.latitude, gpsPosition.longitude], { icon: userIcon })
+                .addTo(map)
+                .bindPopup('<strong> You are here.</strong>');
             markerExists = true;
         }
     } else {
@@ -158,7 +183,7 @@ function refreshUserMarker() {
             map.removeLayer(marker);
             markerExists = false;
         }
-    }       
+    }
 }
 
 //call the refresh function every 5 seconds
@@ -169,3 +194,30 @@ navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
     maximumAge: 1000,
     timeout: 5000
 });
+
+/**
+ * Creates a new page with the description of the point
+ * 
+ * @param {*} id id of the point
+ */
+function pointsDescription(id) {
+    var aux = '';
+    fetch("dados_raulLino.json")
+        .then(response => response.json())
+        .then(json => {
+            aux += '<div class="container">';
+            aux += '<h1 class="display-6">' + json.data[id].title + '</h1><br />';
+            aux += '<p>' + json.data[id].info + '</p>';
+            aux += '<p>Ano: ' + json.data[id].year + '</p>';
+            aux += '<p>Morada: ' + json.data[id].location + '</p>';
+            aux += '<p>Tipo de Edifício: ' + json.data[id].type + '</p>';
+            aux += '<div>';
+            json.data[id].images.forEach(element => {
+                aux += '<img  style="max-width:1000px; max-height:800px;" src="' + element + '" class="d-block w-100" ><br />';
+                
+            });
+            aux += '</div></div>';
+            document.getElementById("iterPDesc").innerHTML = aux;
+        });
+    changeView("desc");
+}
