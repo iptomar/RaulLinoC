@@ -73,7 +73,15 @@ function onSuccess(position) {
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
-
+ 
+    // create fullscreen control and add it to the map
+    L.control.fullscreen({
+        title: 'FullScreen Mode', // change the title of the button, default Full Screen
+        titleCancel: 'Exit FullScreen Mode', // change the title of the button when fullscreen is on, default Exit Full Screen
+        forceSeparateButton: true, // separate button from zoom buttons
+        forcePseudoFullscreen: true // force use of pseudo full screen, makes the fullscreen work incase the api fails
+      }).addTo(map);
+    
     // sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
@@ -111,7 +119,7 @@ function onSuccess(position) {
     //update user coords every 5 seconds
     navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
         maximumAge: 1000,
-        timeout: 5000
+        timeout: 2000
     });
 };
 
