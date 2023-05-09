@@ -75,7 +75,15 @@ function onSuccess(position) {
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
-
+ 
+    // create fullscreen control and add it to the map
+    L.control.fullscreen({
+        title: 'FullScreen Mode', // change the title of the button, default Full Screen
+        titleCancel: 'Exit FullScreen Mode', // change the title of the button when fullscreen is on, default Exit Full Screen
+        forceSeparateButton: true, // separate button from zoom buttons
+        forcePseudoFullscreen: true // force use of pseudo full screen, makes the fullscreen work incase the api fails
+      }).addTo(map);
+    
     // sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
@@ -101,7 +109,9 @@ function onSuccess(position) {
         .then(response => response.json())
         .then(json => {
             json.data.forEach(element => {
-                L.marker([element.coords[0], element.coords[1]], { icon: marker }).addTo(map).bindPopup(element.title);
+                L.marker([element.coords[0], element.coords[1]], { icon: marker })
+                    .addTo(map)
+                    .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
             });
         });
 
@@ -111,7 +121,7 @@ function onSuccess(position) {
     //update user coords every 5 seconds
     navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
         maximumAge: 1000,
-        timeout: 5000
+        timeout: 2000
     });
 };
 
@@ -132,17 +142,22 @@ function onError(error) {
  */
 function changeView(view) {
     //hides last view
-    let currViewElem = document.getElementById(currView).style.display = "none";
+    var currViewElem = document.getElementById(currView);
+    currViewElem.style.display = "none";
     //resets last view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").style.backgroundColor = "#FFFFFF";
+    }
     //sets current view 
     currView = view;
 
     //shows new view
-    currViewElem = document.getElementById(currView).style.display = "block";
+    currViewElem = document.getElementById(currView);
+    currViewElem.style.display = "";
     //sets new view line color
-    document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
-
+    if (currView != "desc") {
+        document.getElementById(currView + "Line").style.backgroundColor = "#e2d301";
+    }
     // if current view is map, loads map
     if (currView == "mapPage") {
         map.invalidateSize();
@@ -181,4 +196,40 @@ function refreshUserMarker() {
             markerExists = false;
         }
     }
+}
+
+//call the refresh function every 5 seconds
+setInterval(refreshUserMarker, 5000);
+
+//gets user location every 5 seconds
+navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+    maximumAge: 1000,
+    timeout: 5000
+});
+
+/**
+ * Creates a new page with the description of the point
+ * 
+ * @param {*} id id of the point
+ */
+function pointsDescription(id) {
+    var aux = '';
+    fetch("dados_raulLino.json")
+        .then(response => response.json())
+        .then(json => {
+            aux += '<div class="container">';
+            aux += '<h1 class="display-6">' + json.data[id].title + '</h1><br />';
+            aux += '<p>' + json.data[id].info + '</p>';
+            aux += '<p>Ano: ' + json.data[id].year + '</p>';
+            aux += '<p>Morada: ' + json.data[id].location + '</p>';
+            aux += '<p>Tipo de Edifício: ' + json.data[id].type + '</p>';
+            aux += '<div>';
+            json.data[id].images.forEach(element => {
+                aux += '<img  style="max-width:1000px; max-height:800px;" src="' + element + '" class="d-block w-100" ><br />';
+                
+            });
+            aux += '</div></div>';
+            document.getElementById("iterPDesc").innerHTML = aux;
+        });
+    changeView("desc");
 }
