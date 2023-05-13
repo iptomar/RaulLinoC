@@ -90,7 +90,6 @@ function onSuccess(position) {
     // add the OpenStreetMap tiles (making the map usable)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-
     //costum green marker    
     const markerG = L.icon({
         iconUrl: 'img\\icons\\localizacao_verde.svg',
@@ -133,9 +132,9 @@ function onSuccess(position) {
 
     //call the refresh function every 5 seconds
     setInterval(refreshUserMarker, 5000);
-    
+
     //yellow itinerary line coordinates
-    var yellowItinerary = [
+    var yellowItinerary = L.polyline([
         [39.463470, -8.201936], 
         [39.463956, -8.200545],
         [39.463898, -8.200425],
@@ -152,10 +151,10 @@ function onSuccess(position) {
         [39.461829, -8.199644],
         [39.461252, -8.199425],
         [39.461363, -8.198468],
-    ];
+    ], {color: 'yellow'});
 
     //green itinerary line coordinates
-    var greenItinerary = [
+    var greenItinerary = L.polyline([
         [39.461363, -8.198468],
         [39.461824, -8.198045],
         [39.461453, -8.197270],
@@ -166,13 +165,25 @@ function onSuccess(position) {
         [39.462594, -8.196299],
         [39.463453, -8.196723],
         [39.464861, -8.197632],
-    ];
+    ], {color: 'green'});
 
-    //adds the yellow itinerary line to the map
-    var yellowLine = L.polyline(yellowItinerary, {color: 'yellow'}).addTo(map);
+    //adds the itineraries to the itinerary layer
+    var itineraryLayer = L.layerGroup([yellowItinerary, greenItinerary]);
 
-    //adds the green itinerary line to the map
-    var greenLine = L.polyline(greenItinerary, {color: 'green'}).addTo(map);
+    //boolean to check if the itineraries are being shown
+    var itinerariesShown = false;
+
+    //create a button on the map to show/hide the itineraries
+    L.easyButton('img\\icons\\mapa_itinerario.svg', function () {
+        if (!itinerariesShown) {
+            itineraryLayer.addTo(map);
+            itinerariesShown = true;
+        //if the itineraries are being shown, hide them
+        } else {
+            map.removeLayer(itineraryLayer);
+            itinerariesShown = false;
+        }
+    }).addTo(map);
 
     //update user coords every 5 seconds
     navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
