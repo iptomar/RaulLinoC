@@ -91,9 +91,19 @@ function onSuccess(position) {
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 
-    //costum marker    
-    const marker = L.icon({
+    //costum green marker    
+    const markerG = L.icon({
         iconUrl: 'img\\icons\\localizacao_verde.svg',
+        iconSize: [50, 50],
+        //icon allignment set to bottom mid corner of the icon
+        iconAnchor: [25, 50],
+        //popup allignment set to top mid corner of the icon
+        popupAnchor: [-5, -40]
+    });
+
+    //costum yellow marker
+    const markerY = L.icon({
+        iconUrl: 'img\\icons\\localizacao_amarela.svg',
         iconSize: [50, 50],
         //icon allignment set to bottom mid corner of the icon
         iconAnchor: [25, 50],
@@ -107,9 +117,17 @@ function onSuccess(position) {
         .then(response => response.json())
         .then(json => {
             json.data.forEach(element => {
-                L.marker([element.coords[0], element.coords[1]], { icon: marker })
-                    .addTo(map)
-                    .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
+                //if the element belong to the yellow itinerary, add a yellow marker
+                if ([1,4,6,7,10,11,14,15,16].includes(element.id)){
+                    L.marker([element.coords[0], element.coords[1]], { icon: markerY })
+                        .addTo(map)
+                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
+                //if the element belongs to the green itinerary, add a green marker
+                }else{
+                    L.marker([element.coords[0], element.coords[1]], { icon: markerG })
+                        .addTo(map)
+                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
+                }
             });
         });
 
