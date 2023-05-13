@@ -134,6 +134,46 @@ function onSuccess(position) {
     //call the refresh function every 5 seconds
     setInterval(refreshUserMarker, 5000);
     
+    //yellow itinerary line coordinates
+    var yellowItinerary = [
+        [39.463470, -8.201936], 
+        [39.463956, -8.200545],
+        [39.463898, -8.200425],
+        [39.464009, -8.199658],
+        [39.464018, -8.199274],
+        [39.463518, -8.198971],
+        [39.463456, -8.198977],
+        [39.463099, -8.198291],
+        [39.463211, -8.198090],
+        [39.462999, -8.198292],
+        [39.462913, -8.197889],
+        [39.462590, -8.198416],
+        [39.462262, -8.198719],
+        [39.461829, -8.199644],
+        [39.461252, -8.199425],
+        [39.461363, -8.198468],
+    ];
+
+    //green itinerary line coordinates
+    var greenItinerary = [
+        [39.461363, -8.198468],
+        [39.461824, -8.198045],
+        [39.461453, -8.197270],
+        [39.461805, -8.196812],
+        [39.462072, -8.196206],
+        [39.462577, -8.196332],
+        [39.462625, -8.196112],
+        [39.462594, -8.196299],
+        [39.463453, -8.196723],
+        [39.464861, -8.197632],
+    ];
+
+    //adds the yellow itinerary line to the map
+    var yellowLine = L.polyline(yellowItinerary, {color: 'yellow'}).addTo(map);
+
+    //adds the green itinerary line to the map
+    var greenLine = L.polyline(greenItinerary, {color: 'green'}).addTo(map);
+
     //update user coords every 5 seconds
     navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
         maximumAge: 1000,
