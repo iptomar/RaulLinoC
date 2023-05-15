@@ -198,14 +198,6 @@ function refreshUserMarker() {
     }
 }
 
-//call the refresh function every 5 seconds
-setInterval(refreshUserMarker, 5000);
-
-//gets user location every 5 seconds
-navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
-    maximumAge: 1000,
-    timeout: 5000
-});
 
 /**
  * Creates a new page with the description of the point
