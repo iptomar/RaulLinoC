@@ -200,6 +200,10 @@ function onSuccess(position) {
             map.removeLayer(greenMarkers);
             yellowMarkers.addTo(map);
 
+            //center the map on the itinerary
+            map.setView([39.463001, -8.198164], 16);
+
+            //change the boolean value
             itinerariesShown = true;
 
         //if the itineraries are being shown, hide them
