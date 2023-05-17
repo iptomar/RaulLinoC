@@ -201,23 +201,30 @@ function refreshUserMarker() {
  * @param {*} id id of the point
  */
 function pointsDescription(id) {
-    var aux = '';
+    var auxDesc = '', auxImg = '';
     fetch("dados_raulLino.json")
         .then(response => response.json())
         .then(json => {
-            aux += '<div class="container">';
-            aux += '<h1 class="display-6">' + json.data[id].title + '</h1><br />';
-            aux += '<p>' + json.data[id].info + '</p>';
-            aux += '<p>Ano: ' + json.data[id].year + '</p>';
-            aux += '<p>Morada: ' + json.data[id].location + '</p>';
-            aux += '<p>Tipo de Edifício: ' + json.data[id].type + '</p>';
-            aux += '<div>';
-            json.data[id].images.forEach(element => {
-                aux += '<img  style="max-width:1000px; max-height:800px;" src="' + element + '" class="d-block w-100" ><br />';
-                
-            });
-            aux += '</div></div>';
-            document.getElementById("iterPDesc").innerHTML = aux;
+            auxDesc += '<div>';
+            auxDesc += '<h1 class="display-6">' + json.data[id].title + '</h1><br />';
+            auxDesc += '<p>' + json.data[id].info + '</p>';
+            auxDesc += '<p>Ano: ' + json.data[id].year + '</p>';
+            auxDesc += '<p>Morada: ' + json.data[id].location + '</p>';
+            auxDesc += '<p>Tipo de Edifício: ' + json.data[id].type + '</p>';
+            auxDesc += '</div>';
+
+            for (var i = 0; i < json.data[id].images.length; i++) {
+                var element = json.data[id].images[i];
+                if (i === 0) {
+                    auxImg += '<div class="carousel-item active">';
+                } else {
+                    auxImg += '<div class="carousel-item">';
+                }
+                auxImg += '<img class="d-block w-100" src="' + element + '" alt="Slide ' + (i + 1) + '">' + '</div>';
+            }
+
+            document.getElementById("iterPDesc").innerHTML = auxDesc;
+            document.getElementById("iterPImg").innerHTML = auxImg;
         });
     changeView("desc");
 }
