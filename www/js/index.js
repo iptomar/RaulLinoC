@@ -232,7 +232,7 @@ function pointsDescription(id) {
                 } else {
                     auxImg += '<div class="carousel-item">';
                 }
-                auxImg += '<img class="d-block w-100" src="' + element + '" alt="Slide ' + (i + 1) + '">' + '</div>';
+                auxImg += '<img class="d-block w-100 car-img" src="' + element + '" alt="Slide ' + (i + 1) + '">' + '</div>';
             }
 
             document.getElementById("iterPDesc").innerHTML = auxDesc;
