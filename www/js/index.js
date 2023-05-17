@@ -63,7 +63,7 @@ function onLocationFound(e) {
 
 //if the current location couldn't be retrieved, logs an error message
 function onLocationError() {
-    swal("There was an error getting the current location.");
+    swal("Houve um erro ao obter a localização.");
 }
 
 /**
@@ -171,20 +171,20 @@ function changeView(view) {
 
     // if current view is map, loads map
     if (currView == "mapPage") {
-        map.invalidateSize();
-        refreshUserMarker();
         if (window.cordova) {
             // Check if location is enabled using cordova.plugins.diagnostic.isLocationEnabled
             cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
                 if (!enabled) {
                     // Display a swal (SweetAlert) if location is disabled
-                    swal("Location is disabled. Please enable it for the correct functioning of the app.");
+                    swal("Localização está desativada. Por favor ative-a para que a aplicação funcione corretamente");
                 }
             }, function (error) {
                 // Display an error swal if an error occurs
                 swal("The following error occurred: " + error.message);
             });
         }
+        map.invalidateSize();
+        refreshUserMarker();
     }
 }
 
