@@ -38,20 +38,21 @@ const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
 //ask for geolocation permission
-document.addEventListener('deviceready', function(){
+document.addEventListener('deviceready', function () {
     cordova.plugins.diagnostic.requestLocationAuthorization(
-        function(status){
+        function (status) {
             //different possibilites of permission success, need to check all of them
-            if(status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE){
+            if (status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
                 console.log("Permission granted.");
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-            }else{
+            } else {
                 console.log("Permission denied.");
+                swal("Permissão de localização negada. Por favor ative-a para que a aplicação funcione corretamente.");
             }
-        }, function(error){
-            console.error("The following error occurred: "+error);
+        }, function (error) {
+            console.error("The following error occurred: " + error);
         }, false
-    );  
+    );
 }, false);
 
 //loads current user location into gpsPosition global variable
@@ -60,8 +61,8 @@ function onLocationFound(e) {
 }
 
 //if the current location couldn't be retrieved, logs an error message
-function onLocationError(e) {
-    console.error("There was an error getting the current location.");
+function onLocationError() {
+    swal("Houve um erro ao obter a localização.");
 }
 
 /**
@@ -71,6 +72,10 @@ function onLocationError(e) {
  * @param {*} position coordinates of the user's location
  */
 function onSuccess(position) {
+    //set current user location
+    gpsPosition = position.coords;
+
+
     console.log("Starting map loading.")
     // create the map with
     map = L.map('map', {
@@ -78,15 +83,15 @@ function onSuccess(position) {
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
- 
+
     // create fullscreen control and add it to the map
     L.control.fullscreen({
         title: 'FullScreen Mode', // change the title of the button, default Full Screen
         titleCancel: 'Exit FullScreen Mode', // change the title of the button when fullscreen is on, default Exit Full Screen
         forceSeparateButton: true, // separate button from zoom buttons
         forcePseudoFullscreen: true // force use of pseudo full screen, makes the fullscreen work incase the api fails
-      }).addTo(map);
-    
+    }).addTo(map);
+
     // sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
@@ -119,7 +124,6 @@ function onSuccess(position) {
     var yellowMarkers = L.layerGroup();
     var greenMarkers = L.layerGroup();
     
-
     // fetches data from json file and add the markers based on the each elemnts coordinates to the map
     fetch("dados_raulLino.json")
         .then(response => response.json())
@@ -233,7 +237,9 @@ function onSuccess(position) {
  * @param {*} error 
  */
 function onError(error) {
-    console.log('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+    swal("Erro.");
+    console.log("error code:" + error.code);
+    console.log("error message:" + error.message);
 }
 
 /**
@@ -268,6 +274,18 @@ function changeView(view) {
 
     // if current view is map, loads map
     if (currView == "mapPage") {
+        if (window.cordova) {
+            // Check if location is enabled using cordova.plugins.diagnostic.isLocationEnabled
+            cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
+                if (!enabled) {
+                    // Display a swal (SweetAlert) if location is disabled
+                    swal("Localização está desativada. Por favor ative-a para que a aplicação funcione corretamente");
+                }
+            }, function (error) {
+                // Display an error swal if an error occurs
+                console.log("The following error occurred: " + error.message);
+            });
+        }
         map.invalidateSize();
         refreshUserMarker();
     }
@@ -278,7 +296,9 @@ function changeView(view) {
  * Setup and refresh of the user location marker
  */
 function refreshUserMarker() {
-
+    //update user coords every time the function is called
+    navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+    });
     //creates the user icon to be added to the map
     var userIcon = L.icon({
         iconUrl: 'img/icons/userIcon.svg',
