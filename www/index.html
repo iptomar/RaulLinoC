@@ -127,13 +127,20 @@
         </div>
         <!-- iteractive points description view -->
         <div id="desc" class="pag" style="display: none;">
-            <div>
-                <div class="title-container">
-                    <h2>Itinerário</h2>
-                    <h3>Raul Lino</h3>
-                </div>
-                <hr style="background-color: #e2d301; height: 2px;" />
-                <div id="iterPDesc">
+            <div id="iterPDesc" class="container">
+            </div>
+            <div class="container">
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div id="iterPImg" class="carousel-inner">
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-target="#carouselExampleControls" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -175,6 +182,9 @@
     <script src="js/leaflet.js"></script>
     <script src="cordova.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/propper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/Control.FullScreen.js"></script>
     <script src="js/sweatalert.min.js"></script>
     <script src="js/easy-button.js"></script>

@@ -82,6 +82,28 @@ a {
     width: 50px;
 }
 
+.car-img {
+    @media (max-width: 300px) {
+        height: 125px;
+    }
+
+    @media (min-width: 300px) {
+        height: 175px;
+    }
+
+    @media (min-width: 820px) {
+        height: 200px;
+    }
+
+    @media (min-width: 1024px) {
+        height: 275px;
+    }
+
+    @media (min-width: 2048px) {
+        height: 425px;
+    }
+}
+
 /* identifiers */
 #bio-img {
 
