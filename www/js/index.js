@@ -100,8 +100,8 @@ function onSuccess(position) {
     // add the OpenStreetMap tiles (making the map usable)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-    //costum marker    
-    const marker = L.icon({
+    //costum green marker    
+    const markerG = L.icon({
         iconUrl: 'img\\icons\\localizacao_verde.svg',
         iconSize: [50, 50],
         //icon allignment set to bottom mid corner of the icon
@@ -110,20 +110,126 @@ function onSuccess(position) {
         popupAnchor: [-5, -40]
     });
 
+    //costum yellow marker
+    const markerY = L.icon({
+        iconUrl: 'img\\icons\\localizacao_amarela.svg',
+        iconSize: [50, 50],
+        //icon allignment set to bottom mid corner of the icon
+        iconAnchor: [25, 50],
+        //popup allignment set to top mid corner of the icon
+        popupAnchor: [-5, -40]
+    });
+
+    //variables to hold the markers that are going to change icons
+    var yellowMarkers = L.layerGroup();
+    var greenMarkers = L.layerGroup();
+    
     // fetches data from json file and add the markers based on the each elemnts coordinates to the map
     fetch("dados_raulLino.json")
         .then(response => response.json())
         .then(json => {
             json.data.forEach(element => {
-                L.marker([element.coords[0], element.coords[1]], { icon: marker })
-                    .addTo(map)
-                    .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
+                //if the element belong to the yellow itinerary, add it to the yellowMarkers layer
+                if ([1,4,6,7,10,11,14,15,16].includes(element.id)){
+                    yellowMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerY })
+                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
+                    greenMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerG })
+                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
+                //if the element belongs to the green itinerary, add a green marker
+                }else{
+                    L.marker([element.coords[0], element.coords[1]], { icon: markerG })
+                        .addTo(map)
+                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
+                }
             });
+
+            //add the greenMarkers layer group to the map
+            greenMarkers.addTo(map);
+            
         });
 
     //call the refresh function every 5 seconds
     setInterval(refreshUserMarker, 5000);
 
+    //yellow itinerary line coordinates
+    var yellowItinerary = L.polyline([
+        [39.463470, -8.201936], 
+        [39.463956, -8.200545],
+        [39.463898, -8.200425],
+        [39.464009, -8.199658],
+        [39.464018, -8.199274],
+        [39.463518, -8.198971],
+        [39.463456, -8.198977],
+        [39.463099, -8.198291],
+        [39.463211, -8.198090],
+        [39.462999, -8.198292],
+        [39.462913, -8.197889],
+        [39.462590, -8.198416],
+        [39.462262, -8.198719],
+        [39.461829, -8.199644],
+        [39.461252, -8.199425],
+        [39.461363, -8.198468],
+    ], {color: 'yellow'});
+
+    //green itinerary line coordinates
+    var greenItinerary = L.polyline([
+        [39.461363, -8.198468],
+        [39.461824, -8.198045],
+        [39.461453, -8.197270],
+        [39.461805, -8.196812],
+        [39.462072, -8.196206],
+        [39.462577, -8.196332],
+        [39.462625, -8.196112],
+        [39.462594, -8.196299],
+        [39.463453, -8.196723],
+        [39.464861, -8.197632],
+    ], {color: 'green'});
+
+    //adds the itineraries to the itinerary layer
+    var itineraryLayer = L.layerGroup([yellowItinerary, greenItinerary]);
+
+    //boolean to check if the itineraries are being shown
+    var itinerariesShown = false;
+
+    //icon for the show/hide itineraries button
+    var itineraryIcon = L.icon({
+        iconUrl: 'img\\icons\\mapa_itinerario.svg',
+        iconSize: [50, 50],
+        //icon allignment set to bottom mid corner of the icon
+        iconAnchor: [25, 50],
+        //popup allignment set to top mid corner of the icon
+        popupAnchor: [-5, -40]
+    });
+
+    //create a button on the map to show/hide the itineraries
+    L.easyButton('<img src="img/icons/mapa_itinerario.svg" style="width:30px">', function () {
+        if (!itinerariesShown) {
+            itineraryLayer.addTo(map);
+            //change to the yellowMarkers layer group
+            map.removeLayer(greenMarkers);
+            yellowMarkers.addTo(map);
+
+            //center the map on the itinerary
+            map.setView([39.463001, -8.198164], 16);
+
+            //change the boolean value
+            itinerariesShown = true;
+
+        //if the itineraries are being shown, hide them
+        } else {
+            map.removeLayer(itineraryLayer);
+            //change to the greenMarkers layer group
+            map.removeLayer(yellowMarkers);
+            greenMarkers.addTo(map);
+            itinerariesShown = false;
+        }
+    }).addTo(map);
+
+    //update user coords every 5 seconds
+    navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+        maximumAge: 1000,
+        timeout: 2000
+    });
 };
 
 /**
