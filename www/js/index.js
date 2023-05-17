@@ -47,11 +47,10 @@ document.addEventListener('deviceready', function () {
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
             } else {
                 console.log("Permission denied.");
-                swal("Permission denied. Permission needede for the app run correctly.\nPlease allow acess to location in device settings.");
+                swal("Permissão de localização negada. Por favor ative-a para que a aplicação funcione corretamente.");
             }
         }, function (error) {
             console.error("The following error occurred: " + error);
-            swal("\nThe following error occurred: " + error.code + " - " + error.message);
         }, false
     );
 }, false);
@@ -101,7 +100,6 @@ function onSuccess(position) {
     // add the OpenStreetMap tiles (making the map usable)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
-
     //costum marker    
     const marker = L.icon({
         iconUrl: 'img\\icons\\localizacao_verde.svg',
@@ -111,7 +109,6 @@ function onSuccess(position) {
         //popup allignment set to top mid corner of the icon
         popupAnchor: [-5, -40]
     });
-
 
     // fetches data from json file and add the markers based on the each elemnts coordinates to the map
     fetch("dados_raulLino.json")
@@ -134,7 +131,7 @@ function onSuccess(position) {
  * @param {*} error 
  */
 function onError(error) {
-    swal("There was an error. " + error.message);
+    swal("Erro.");
     console.log("error code:" + error.code);
     console.log("error message:" + error.message);
 }
@@ -180,7 +177,7 @@ function changeView(view) {
                 }
             }, function (error) {
                 // Display an error swal if an error occurs
-                swal("The following error occurred: " + error.message);
+                console.log("The following error occurred: " + error.message);
             });
         }
         map.invalidateSize();
