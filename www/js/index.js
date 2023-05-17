@@ -47,11 +47,11 @@ document.addEventListener('deviceready', function () {
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
             } else {
                 console.log("Permission denied.");
-                onError("Permission denied. Permission needede for the app run correctly.\nPlease allow acess to location in device settings.");
+                swal("Permission denied. Permission needede for the app run correctly.\nPlease allow acess to location in device settings.");
             }
         }, function (error) {
             console.error("The following error occurred: " + error);
-            alert("\nThe following error occurred: " + error.code + " - " + error.message);
+            swal("\nThe following error occurred: " + error.code + " - " + error.message);
         }, false
     );
 }, false);
@@ -62,8 +62,8 @@ function onLocationFound(e) {
 }
 
 //if the current location couldn't be retrieved, logs an error message
-function onLocationError(e) {
-    console.error("There was an error getting the current location.");
+function onLocationError() {
+    swal("There was an error getting the current location.");
 }
 
 /**
@@ -73,6 +73,10 @@ function onLocationError(e) {
  * @param {*} position coordinates of the user's location
  */
 function onSuccess(position) {
+    //set current user location
+    gpsPosition = position.coords;
+
+
     console.log("Starting map loading.")
     // create the map with
     map = L.map('map', {
@@ -80,15 +84,15 @@ function onSuccess(position) {
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
- 
+
     // create fullscreen control and add it to the map
     L.control.fullscreen({
         title: 'FullScreen Mode', // change the title of the button, default Full Screen
         titleCancel: 'Exit FullScreen Mode', // change the title of the button when fullscreen is on, default Exit Full Screen
         forceSeparateButton: true, // separate button from zoom buttons
         forcePseudoFullscreen: true // force use of pseudo full screen, makes the fullscreen work incase the api fails
-      }).addTo(map);
-    
+    }).addTo(map);
+
     // sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
@@ -123,11 +127,6 @@ function onSuccess(position) {
     //call the refresh function every 5 seconds
     setInterval(refreshUserMarker, 5000);
 
-    //update user coords every 5 seconds
-    navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
-        maximumAge: 1000,
-        timeout: 2000
-    });
 };
 
 /**
@@ -135,7 +134,7 @@ function onSuccess(position) {
  * @param {*} error 
  */
 function onError(error) {
-    alert("There was an error getting the current location. Please turn on your location.");
+    swal("There was an error. " + error.message);
     console.log("error code:" + error.code);
     console.log("error message:" + error.message);
 }
@@ -174,6 +173,18 @@ function changeView(view) {
     if (currView == "mapPage") {
         map.invalidateSize();
         refreshUserMarker();
+        if (window.cordova) {
+            // Check if location is enabled using cordova.plugins.diagnostic.isLocationEnabled
+            cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
+                if (!enabled) {
+                    // Display a swal (SweetAlert) if location is disabled
+                    swal("Location is disabled. Please enable it for the correct functioning of the app.");
+                }
+            }, function (error) {
+                // Display an error swal if an error occurs
+                swal("The following error occurred: " + error.message);
+            });
+        }
     }
 }
 
@@ -182,7 +193,9 @@ function changeView(view) {
  * Setup and refresh of the user location marker
  */
 function refreshUserMarker() {
-
+    //update user coords every time the function is called
+    navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
+    });
     //creates the user icon to be added to the map
     var userIcon = L.icon({
         iconUrl: 'img/icons/userIcon.svg',
@@ -230,7 +243,7 @@ function pointsDescription(id) {
             aux += '<div>';
             json.data[id].images.forEach(element => {
                 aux += '<img  style="max-width:1000px; max-height:800px;" src="' + element + '" class="d-block w-100" ><br />';
-                
+
             });
             aux += '</div></div>';
             document.getElementById("iterPDesc").innerHTML = aux;
