@@ -127,8 +127,8 @@ function onSuccess(position) {
     // specify popup options 
     var customOptions =
     {
-    'maxWidth': '400',
-    'width': '200',
+    'maxWidth': '150',
+    'minWidth': '150',
     'className' : 'custom'
     }
 
