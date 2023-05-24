@@ -125,12 +125,11 @@ function onSuccess(position) {
     var greenMarkers = L.layerGroup();
 
     // specify popup options 
-    var customOptions =
-    {
-    'maxWidth': '150',
-    'minWidth': '150',
-    'className' : 'custom'
-    }
+    var customOptions = {
+        'maxWidth': '150',
+        'minWidth': '150',
+        'className' : 'custom'
+    };
 
     // fetches data from json file and add the markers based on the each elemnts coordinates to the map
     fetch("dados_raulLino.json")
