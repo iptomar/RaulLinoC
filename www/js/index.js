@@ -62,7 +62,7 @@ function onLocationFound(e) {
 
 //if the current location couldn't be retrieved, logs an error message
 function onLocationError() {
-    swal("Houve um erro ao obter a localização.");
+    console.log("Houve um erro ao obter a localização.");
 }
 
 /**
