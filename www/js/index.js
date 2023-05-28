@@ -19,8 +19,13 @@
 
 // when page is loaded, loads home view
 window.onload = () => {
+    lang = "en-GB";
     changeView('home');
+    loadLanguage();
 }
+
+// holds the current language
+let lang = "pt-PT";
 
 // holds the view that is currently being displayed
 let currView = "home";
@@ -127,8 +132,8 @@ function onSuccess(position) {
     // fetches data from json file and add the markers based on the each elemnts coordinates to the map
     fetch("dados_raulLino.json")
         .then(response => response.json())
-        .then(json => {
-            json.data.forEach(element => {
+        .then(itinerary => {
+            itinerary[lang].forEach(element => {
                 //if the element belong to the yellow itinerary, add it to the yellowMarkers layer
                 if ([1,4,6,7,10,11,14,15,16].includes(element.id)){
                     yellowMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerY })
@@ -262,6 +267,9 @@ function changeView(view) {
     //sets current view 
     currView = view;
 
+    // loads the language on each page
+    loadLanguage();
+
     //shows new view
     currViewElem = document.getElementById(currView);
     currViewElem.style.display = "";
@@ -336,17 +344,17 @@ function pointsDescription(id) {
     var auxDesc = '', auxImg = '';
     fetch("dados_raulLino.json")
         .then(response => response.json())
-        .then(json => {
+        .then(itinerary => {
             auxDesc += '<div>';
-            auxDesc += '<h1 class="display-6">' + json.data[id].title + '</h1><br />';
-            auxDesc += '<p>' + json.data[id].info + '</p>';
-            auxDesc += '<p>Ano: ' + json.data[id].year + '</p>';
-            auxDesc += '<p>Morada: ' + json.data[id].location + '</p>';
-            auxDesc += '<p>Tipo de Edifício: ' + json.data[id].type + '</p>';
+            auxDesc += '<h1 class="display-6">' + itinerary[lang][id].title + '</h1><br />';
+            auxDesc += '<p>' + itinerary[lang][id].info + '</p>';
+            auxDesc += '<p>Ano: ' + itinerary[lang][id].year + '</p>';
+            auxDesc += '<p>Morada: ' + itinerary[lang][id].location + '</p>';
+            auxDesc += '<p>Tipo de Edifício: ' + itinerary[lang][id].type + '</p>';
             auxDesc += '</div>';
 
-            for (var i = 0; i < json.data[id].images.length; i++) {
-                var element = json.data[id].images[i];
+            for (var i = 0; i < itinerary[lang][id].images.length; i++) {
+                var element = itinerary[lang][id].images[i];
                 if (i === 0) {
                     auxImg += '<div class="carousel-item active">';
                 } else {
@@ -359,4 +367,42 @@ function pointsDescription(id) {
             document.getElementById("iterPImg").innerHTML = auxImg;
         });
     changeView("desc");
+}
+
+
+let loadLanguage = () => {
+    // fetches data from globalization.json file
+    fetch("globalization.json")
+        .then(response => response.json())
+        .then(data => {
+            // main elements
+            document.getElementById("main-title").innerHTML = data[lang]["main-title"];
+            document.getElementById("raul-lino-title").innerHTML = data[lang].title;
+
+            switch (currView) {
+                case "home":
+                    document.getElementById("page-title").innerHTML = data[lang].home.title;
+                    data[lang].home.paragraphs.forEach(paragraph => {
+                        document.getElementById("paragraphs").innerHTML += "<p>" + paragraph + "</p>";
+                    });
+                    break;
+                case "bio":
+                    document.getElementById("page-title").innerHTML = data[lang].bio.title;
+                    data[lang].bio.paragraphs.forEach(paragraph => {
+                        document.getElementById("paragraphs").innerHTML += "<p>" + paragraph + "</p>";
+                    });
+                    break;
+                case "mapPage":
+                    document.getElementById("page-title").innerHTML = data[lang].map.title;
+                    break;
+                
+                default:
+                    break;
+            }
+
+            // carousel
+            document.getElementById("previous").innerHTML = data[lang].map.previous;
+            document.getElementById("next").innerHTML = data[lang].map.next;
+        })
+        .catch(err => console.log(err));
 }
