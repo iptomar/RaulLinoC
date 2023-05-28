@@ -225,6 +225,11 @@ function onSuccess(position) {
         }
     }).addTo(map);
 
+    //create a button to open the view with the itineraries historic
+    L.easyButton('<img src="img/icons/mapa_historia.svg" style="width:30px">', function () {
+        changeView("hist");
+    }).addTo(map);
+
     //update user coords every 5 seconds
     navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
         maximumAge: 1000,
