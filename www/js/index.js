@@ -21,15 +21,17 @@
  * When the page is loaded, loads the data from the json files and sets the default language to portuguese
  */
 window.onload = async () => {
-    lang = "pt-PT";
     await fetchLocalization();
     await fetchData();
+    setLang('pt-PT');
     changeView('home');
-    loadLanguageContent();
+    loadLanguageContent(lang);
 }
 
+//html5 webstorage
+let storage = window.localStorage;
 //holds the current language
-let lang = "pt-PT";
+let lang;
 //holds the localization data from the json file
 let localization;
 //holds the Raul Lino data from the json file
@@ -51,6 +53,9 @@ const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
 //ask for geolocation permission
 document.addEventListener('deviceready', function () {
+    //gets language from storage
+    lang = getLang();
+
     cordova.plugins.diagnostic.requestLocationAuthorization(
         function (status) {
             //different possibilites of permission success, need to check all of them
@@ -84,6 +89,9 @@ function onLocationError() {
  * @param {*} position coordinates of the user's location
  */
 function onSuccess(position) {
+    //gets language from storage
+    let lang = getLang();
+    
     //set current user location
     gpsPosition = position.coords;
 
@@ -133,8 +141,8 @@ function onSuccess(position) {
     });
 
     //variables to hold the markers that are going to change icons
-    var yellowMarkers = L.layerGroup();
-    var greenMarkers = L.layerGroup();
+    let yellowMarkers = L.layerGroup();
+    let greenMarkers = L.layerGroup();
     
     //add the markers based on the each elements coordinates to the map
     data[lang].forEach(element => {
@@ -160,7 +168,7 @@ function onSuccess(position) {
     setInterval(refreshUserMarker, 5000);
 
     //yellow itinerary line coordinates
-    var yellowItinerary = L.polyline([
+    let yellowItinerary = L.polyline([
         [39.463470, -8.201936], 
         [39.463956, -8.200545],
         [39.463898, -8.200425],
@@ -180,7 +188,7 @@ function onSuccess(position) {
     ], {color: 'yellow'});
 
     //green itinerary line coordinates
-    var greenItinerary = L.polyline([
+    let greenItinerary = L.polyline([
         [39.461363, -8.198468],
         [39.461824, -8.198045],
         [39.461453, -8.197270],
@@ -194,13 +202,13 @@ function onSuccess(position) {
     ], {color: 'green'});
 
     //adds the itineraries to the itinerary layer
-    var itineraryLayer = L.layerGroup([yellowItinerary, greenItinerary]);
+    let itineraryLayer = L.layerGroup([yellowItinerary, greenItinerary]);
 
     //boolean to check if the itineraries are being shown
-    var itinerariesShown = false;
+    let itinerariesShown = false;
 
     //icon for the show/hide itineraries button
-    var itineraryIcon = L.icon({
+    let itineraryIcon = L.icon({
         iconUrl: 'img\\icons\\mapa_itinerario.svg',
         iconSize: [50, 50],
         //icon allignment set to bottom mid corner of the icon
@@ -308,7 +316,7 @@ function refreshUserMarker() {
     navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
     });
     //creates the user icon to be added to the map
-    var userIcon = L.icon({
+    let userIcon = L.icon({
         iconUrl: 'img/icons/userIcon.svg',
 
         iconSize: [20, 40], //size of the icon
@@ -341,7 +349,7 @@ function refreshUserMarker() {
  * @param {*} id id of the point
  */
 function pointsDescription(id) {
-    var auxDesc = '', auxImg = '';
+    let auxDesc = '', auxImg = '';
 
     auxDesc += '<div>';
     auxDesc += '<h1 class="display-6">' + data[lang][id].title + '</h1><br />';
@@ -351,8 +359,8 @@ function pointsDescription(id) {
     auxDesc += '<p>' + localization[lang]['type-of-building'] + ': ' + data[lang][id].type + '</p>';
     auxDesc += '</div>';
 
-    for (var i = 0; i < data[lang][id].images.length; i++) {
-        var element = data[lang][id].images[i];
+    for (let i = 0; i < data[lang][id].images.length; i++) {
+        let element = data[lang][id].images[i];
         if (i === 0) {
             auxImg += '<div class="carousel-item active">';
         } else {
@@ -404,7 +412,7 @@ let fetchData = () => {
 /**
  * Loads the content of all static pages based on the current language
  */
-let loadLanguageContent = () => {
+let loadLanguageContent = (lang) => {
     //resets all paragraphs, so it doesn't append the new ones to the old ones
     document.getElementById("paragraphs-home").innerHTML = "";
     document.getElementById("paragraphs-bio").innerHTML = "";
@@ -431,4 +439,23 @@ let loadLanguageContent = () => {
     //carousel
     document.getElementById("previous").innerHTML = localization[lang].map.previous;
     document.getElementById("next").innerHTML = localization[lang].map.next;
+}
+
+/**
+ * sets the language in the local storage
+ * @param {string} lang 
+ */
+let setLang = (newLang) => {
+    lang = newLang;
+    storage.setItem("lang", lang);
+    loadLanguageContent(lang);
+}
+
+/**
+ * 
+ * @returns the chosen language stored in the local storage
+ * if there is no language stored, returns the default language (pt-PT)
+ */
+let getLang = () => {
+    return storage.getItem("lang") ?? "pt-PT";
 }
