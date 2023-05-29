@@ -2,6 +2,9 @@
     "pt-PT": {
         "title": "Raul Lino",
         "main-title": "Itinerario",
+        "year": "Ano",
+        "address": "Morada",
+        "type-of-building": "Tipo de edifício",
         "home": {
             "title": "Home",
             "paragraphs": [
@@ -21,11 +24,19 @@
             "title": "Mapa",
             "previous": "Anterior",
             "next": "Próxima"
+        },
+        "location": {
+            "permission-denied": "Permissão de localização negada. Por favor ative-a para que a aplicação funcione corretamente.",
+            "deactivated": "Localização está desativada. Por favor ative-a para que a aplicação funcione corretamente",
+            "error": "Ocorreu um erro ao obter a localização. Por favor tente novamente mais tarde.\n\nErro:"
         }
     },
     "en-GB": {
         "title": "Raul Lino",
         "main-title": "Itinerary",
+        "year": "Year",
+        "address": "Address",
+        "type-of-building": "Type of building",
         "home": {
             "title": "Home",
             "paragraphs": [
@@ -45,6 +56,11 @@
             "title": "Map",
             "previous": "Previous",
             "next": "Next"
+        },
+        "location": {
+            "permission-denied": "Location permission denied. Please enable it for the application to function correctly.",
+            "deactivated": "Location is deactivated. Please enable it for the application to function correctly.",
+            "error": "An error occurred while retrieving the location. Please try again later.\n\nError:"
         }
     }
 }

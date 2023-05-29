@@ -17,20 +17,23 @@
  * under the License.
  */
 
-//when page is loaded, loads home view
+/**
+ * When the page is loaded, loads the data from the json files and sets the default language to portuguese
+ */
 window.onload = async () => {
-    lang = "en-GB";
-    await fetchGlobalization();
+    lang = "pt-PT";
+    await fetchLocalization();
+    await fetchData();
     changeView('home');
     loadLanguageContent();
 }
 
 //holds the current language
 let lang = "pt-PT";
-
-//holds the globalization data from the json file
-let globalization;
-
+//holds the localization data from the json file
+let localization;
+//holds the Raul Lino data from the json file
+let data;
 //holds the view that is currently being displayed
 let currView = "home";
 //holds map object
@@ -56,7 +59,7 @@ document.addEventListener('deviceready', function () {
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
             } else {
                 console.log("Permission denied.");
-                swal("Permissão de localização negada. Por favor ative-a para que a aplicação funcione corretamente.");
+                swal(localization[lang].location['permission-denied']);
             }
         }, function (error) {
             console.error("The following error occurred: " + error);
@@ -133,29 +136,25 @@ function onSuccess(position) {
     var yellowMarkers = L.layerGroup();
     var greenMarkers = L.layerGroup();
     
-    //fetches data from json file and add the markers based on the each elemnts coordinates to the map
-    fetch("dados_raulLino.json")
-        .then(response => response.json())
-        .then(itinerary => {
-            itinerary[lang].forEach(element => {
-                //if the element belong to the yellow itinerary, add it to the yellowMarkers layer
-                if ([1,4,6,7,10,11,14,15,16].includes(element.id)){
-                    yellowMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerY })
-                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
-                    greenMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerG })
-                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
-                //if the element belongs to the green itinerary, add a green marker
-                }else{
-                    L.marker([element.coords[0], element.coords[1]], { icon: markerG })
-                        .addTo(map)
-                        .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
-                }
-            });
+    //add the markers based on the each elements coordinates to the map
+    data[lang].forEach(element => {
+        //if the element belong to the yellow itinerary, add it to the yellowMarkers layer
+        if ([1,4,6,7,10,11,14,15,16].includes(element.id)){
+            yellowMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerY })
+                .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
+            greenMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerG })
+                .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
+        //if the element belongs to the green itinerary, add a green marker
+        }else{
+            L.marker([element.coords[0], element.coords[1]], { icon: markerG })
+                .addTo(map)
+                .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
+        }
+    });
 
-            //add the greenMarkers layer group to the map
-            greenMarkers.addTo(map);
-            
-        });
+    //add the greenMarkers layer group to the map
+    greenMarkers.addTo(map);
+    
 
     //call the refresh function every 5 seconds
     setInterval(refreshUserMarker, 5000);
@@ -246,7 +245,7 @@ function onSuccess(position) {
  * @param {*} error 
  */
 function onError(error) {
-    swal("Erro.");
+    swal(localization[lang].location.error);
     console.log("error code:" + error.code);
     console.log("error message:" + error.message);
 }
@@ -288,7 +287,7 @@ function changeView(view) {
             cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
                 if (!enabled) {
                     //Display a swal (SweetAlert) if location is disabled
-                    swal("Localização está desativada. Por favor ative-a para que a aplicação funcione corretamente");
+                    swal(localization[lang].location.deactivated);
                 }
             }, function (error) {
                 //Display an error swal if an error occurs
@@ -343,43 +342,58 @@ function refreshUserMarker() {
  */
 function pointsDescription(id) {
     var auxDesc = '', auxImg = '';
-    fetch("dados_raulLino.json")
-        .then(response => response.json())
-        .then(itinerary => {
-            auxDesc += '<div>';
-            auxDesc += '<h1 class="display-6">' + itinerary[lang][id].title + '</h1><br />';
-            auxDesc += '<p>' + itinerary[lang][id].info + '</p>';
-            auxDesc += '<p>Ano: ' + itinerary[lang][id].year + '</p>';
-            auxDesc += '<p>Morada: ' + itinerary[lang][id].location + '</p>';
-            auxDesc += '<p>Tipo de Edifício: ' + itinerary[lang][id].type + '</p>';
-            auxDesc += '</div>';
 
-            for (var i = 0; i < itinerary[lang][id].images.length; i++) {
-                var element = itinerary[lang][id].images[i];
-                if (i === 0) {
-                    auxImg += '<div class="carousel-item active">';
-                } else {
-                    auxImg += '<div class="carousel-item">';
-                }
-                auxImg += '<img class="d-block w-100 car-img" src="' + element + '" alt="Slide ' + (i + 1) + '">' + '</div>';
-            }
+    auxDesc += '<div>';
+    auxDesc += '<h1 class="display-6">' + data[lang][id].title + '</h1><br />';
+    auxDesc += '<p>' + data[lang][id].info + '</p>';
+    auxDesc += '<p>' + localization[lang].year + ': ' + data[lang][id].year + '</p>';
+    auxDesc += '<p>' + localization[lang].address + ': ' + data[lang][id].location + '</p>';
+    auxDesc += '<p>' + localization[lang]['type-of-building'] + ': ' + data[lang][id].type + '</p>';
+    auxDesc += '</div>';
 
-            document.getElementById("iterPDesc").innerHTML = auxDesc;
-            document.getElementById("iterPImg").innerHTML = auxImg;
-        });
+    for (var i = 0; i < data[lang][id].images.length; i++) {
+        var element = data[lang][id].images[i];
+        if (i === 0) {
+            auxImg += '<div class="carousel-item active">';
+        } else {
+            auxImg += '<div class="carousel-item">';
+        }
+        auxImg += '<img class="d-block w-100 car-img" src="' + element + '" alt="Slide ' + (i + 1) + '">' + '</div>';
+    }
+
+    document.getElementById("iterPDesc").innerHTML = auxDesc;
+    document.getElementById("iterPImg").innerHTML = auxImg;
+
     changeView("desc");
 }
 
 /**
- * Fetches and load the globalization data from the json file
+ * Fetches and load the localization data from the json file
  */
-let fetchGlobalization = () => {
-    return fetch('./globalization.json')
+let fetchLocalization = () => {
+    return fetch('./localization.json')
         .then(response => response.json())
-        .then(data => {
+        .then(response => {
             //assign the data to the global variable
-            globalization = data;
-            return globalization;
+            localization = response;
+            return localization;
+        })
+        .catch(error => {
+            //handle any errors
+            console.error(error);
+        });
+}
+
+/**
+ * Fetches and load the Raul Lino data from the json file
+ */
+let fetchData = () => {
+    return fetch('./dados_raulLino.json')
+        .then(response => response.json())
+        .then(response => {
+            //assign the data to the global variable
+            data = response;
+            return data;
         })
         .catch(error => {
             //handle any errors
@@ -396,25 +410,25 @@ let loadLanguageContent = () => {
     document.getElementById("paragraphs-bio").innerHTML = "";
 
     //main elements
-    document.getElementById("main-title").innerHTML = globalization[lang]["main-title"];
-    document.getElementById("raul-lino-title").innerHTML = globalization[lang].title;
+    document.getElementById("main-title").innerHTML = localization[lang]["main-title"];
+    document.getElementById("raul-lino-title").innerHTML = localization[lang].title;
 
     //home page
-    document.getElementById("page-title-home").innerHTML = globalization[lang].home.title;
-    globalization[lang].home.paragraphs.forEach(paragraph => {
+    document.getElementById("page-title-home").innerHTML = localization[lang].home.title;
+    localization[lang].home.paragraphs.forEach(paragraph => {
         document.getElementById("paragraphs-home").innerHTML += "<p>" + paragraph + "</p>";
     });
 
     //bio page
-    document.getElementById("page-title-bio").innerHTML = globalization[lang].bio.title;
-    globalization[lang].bio.paragraphs.forEach(paragraph => {
+    document.getElementById("page-title-bio").innerHTML = localization[lang].bio.title;
+    localization[lang].bio.paragraphs.forEach(paragraph => {
         document.getElementById("paragraphs-bio").innerHTML += "<p>" + paragraph + "</p>";
     });
 
     //bio page
-    document.getElementById("page-title-map").innerHTML = globalization[lang].map.title;
+    document.getElementById("page-title-map").innerHTML = localization[lang].map.title;
 
     //carousel
-    document.getElementById("previous").innerHTML = globalization[lang].map.previous;
-    document.getElementById("next").innerHTML = globalization[lang].map.next;
+    document.getElementById("previous").innerHTML = localization[lang].map.previous;
+    document.getElementById("next").innerHTML = localization[lang].map.next;
 }
