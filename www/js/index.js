@@ -23,7 +23,7 @@
 window.onload = async () => {
     await fetchLocalization();
     await fetchData();
-    setLang('pt-PT');
+    getLang();
     changeView('home');
     loadLanguageContent(lang);
 }
@@ -457,5 +457,5 @@ let setLang = (newLang) => {
  * if there is no language stored, returns the default language (pt-PT)
  */
 let getLang = () => {
-    return storage.getItem("lang") ?? "pt-PT";
+    return storage.getItem("lang") ?? setLang("pt-PT");
 }
