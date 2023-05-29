@@ -29,6 +29,11 @@
             "permission-denied": "Permissão de localização negada. Por favor ative-a para que a aplicação funcione corretamente.",
             "deactivated": "Localização está desativada. Por favor ative-a para que a aplicação funcione corretamente",
             "error": "Ocorreu um erro ao obter a localização. Por favor tente novamente mais tarde.\n\nErro:"
+        },
+        "settings": {
+            "title": "Definições",
+            "language": "Idioma",
+            "language-description": "Escolha o idioma da aplicação"
         }
     },
     "en-GB": {
@@ -61,6 +66,11 @@
             "permission-denied": "Location permission denied. Please enable it for the application to function correctly.",
             "deactivated": "Location is deactivated. Please enable it for the application to function correctly.",
             "error": "An error occurred while retrieving the location. Please try again later.\n\nError:"
+        },
+        "settings": {
+            "title": "Settings",
+            "language": "Language",
+            "language-description": "Choose the application language"
         }
     }
 }

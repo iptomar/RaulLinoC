@@ -305,6 +305,38 @@ function changeView(view) {
         map.invalidateSize();
         refreshUserMarker();
     }
+
+    //if current view is settings, loads settings
+    if (currView == "settings") {
+        //gets language from storage
+        lang = getLang();
+        populateLanguageSelector();
+    }
+}
+
+//populates the selector with the available languages
+let populateLanguageSelector = () => {
+    const languageSelector = document.getElementById("language-select");
+    languageSelector.innerHTML = "";
+
+    //gets all the languages from the localization file
+    const languages = Object.keys(localization);
+
+    //adds all the languages to the selector
+    for (let i = 0; i < languages.length; i++) {
+        let option = document.createElement("option");
+        option.text = option.value = languages[i];
+        languageSelector.add(option);
+    }
+
+    //sets the current language as the selected option
+    languageSelector.value = getLang();
+    
+    //adds an event listener to the selector to change the language
+    languageSelector.addEventListener("change", () => {
+        setLang(languageSelector.value);
+        languageSelector.value = getLang();
+    });
 }
 
 
@@ -435,6 +467,10 @@ let loadLanguageContent = (lang) => {
 
     //bio page
     document.getElementById("page-title-map").innerHTML = localization[lang].map.title;
+
+    //settings page
+    document.getElementById("page-title-settings").innerHTML = localization[lang].settings.title;
+    document.getElementById("language-label").innerHTML = localization[lang].settings.language;
 
     //carousel
     document.getElementById("previous").innerHTML = localization[lang].map.previous;

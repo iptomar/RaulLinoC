@@ -80,10 +80,15 @@
             </div>
         </div>
 
-        <!-- augmented reality view -->
-        <div id="augReal" style="display: none;">
-            <h1 class="page-title px-3">Realidade Aumentada</h1>
+        <!-- settings view -->
+        <div id="settings" class="px-3" style="display: none;">
+            <h1 id="page-title-settings" class="page-title"></h1>
+            <div class="form-group">
+                <label id="language-label" for="language-select"></label>
+                <select id="language-select" class="custom-select"></select>
+            </div>
         </div>
+
         <!-- iteractive points description view -->
         <div id="desc" class="pag" style="display: none;">
             <div id="iterPDesc" class="container">
@@ -128,8 +133,8 @@
                     </a>
                 </div>
                 <div class="navigator col p-0 flex-column d-flex align-items-center">
-                    <hr id="augRealLine" class="transparent-divisor"/>
-                    <a href="#" class="navbar-brand d-flex align-items-center" onclick="changeView('augReal')">
+                    <hr id="settingsLine" class="transparent-divisor"/>
+                    <a href="#" class="navbar-brand d-flex align-items-center" onclick="changeView('settings')">
                         <img class="navigator-icons" src="img/icons/realidade_aumentada.svg" />
                     </a>
                 </div>
