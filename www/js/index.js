@@ -17,29 +17,33 @@
  * under the License.
  */
 
-// when page is loaded, loads home view
-window.onload = () => {
+//when page is loaded, loads home view
+window.onload = async () => {
     lang = "en-GB";
+    await fetchGlobalization();
     changeView('home');
-    loadLanguage();
+    loadLanguageContent();
 }
 
-// holds the current language
+//holds the current language
 let lang = "pt-PT";
 
-// holds the view that is currently being displayed
+//holds the globalization data from the json file
+let globalization;
+
+//holds the view that is currently being displayed
 let currView = "home";
-// holds map object
+//holds map object
 let map, gpsPosition;
 //bool to control current status of the user location marker
 let markerExists = false;
 
-// convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
-// these coordinates were acquired without any study (eye estimation)
+//convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
+//these coordinates were acquired without any study (eye estimation)
 const UPLEFTCORNER = L.latLng(39.510042, -8.296089);
 const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 
-// use those coordinates to define the bounds of the map
+//use those coordinates to define the bounds of the map
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
 //ask for geolocation permission
@@ -82,27 +86,27 @@ function onSuccess(position) {
 
 
     console.log("Starting map loading.")
-    // create the map with
+    //create the map with
     map = L.map('map', {
         center: [position.coords.latitude, position.coords.longitude],
         maxZoom: 18,
         minZoom: 12,
     }).setView([position.coords.latitude, position.coords.longitude], 12);
 
-    // create fullscreen control and add it to the map
+    //create fullscreen control and add it to the map
     L.control.fullscreen({
-        title: 'FullScreen Mode', // change the title of the button, default Full Screen
-        titleCancel: 'Exit FullScreen Mode', // change the title of the button when fullscreen is on, default Exit Full Screen
-        forceSeparateButton: true, // separate button from zoom buttons
-        forcePseudoFullscreen: true // force use of pseudo full screen, makes the fullscreen work incase the api fails
+        title: 'FullScreen Mode', //change the title of the button, default Full Screen
+        titleCancel: 'Exit FullScreen Mode', //change the title of the button when fullscreen is on, default Exit Full Screen
+        forceSeparateButton: true, //separate button from zoom buttons
+        forcePseudoFullscreen: true //force use of pseudo full screen, makes the fullscreen work incase the api fails
     }).addTo(map);
 
-    // sets max bounds
+    //sets max bounds
     map.setMaxBounds(bounds);
     //call onLocationFound when user location is found
     map.on('locationfound', onLocationFound);
 
-    // add the OpenStreetMap tiles (making the map usable)
+    //add the OpenStreetMap tiles (making the map usable)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     //costum green marker    
@@ -129,7 +133,7 @@ function onSuccess(position) {
     var yellowMarkers = L.layerGroup();
     var greenMarkers = L.layerGroup();
     
-    // fetches data from json file and add the markers based on the each elemnts coordinates to the map
+    //fetches data from json file and add the markers based on the each elemnts coordinates to the map
     fetch("dados_raulLino.json")
         .then(response => response.json())
         .then(itinerary => {
@@ -267,9 +271,6 @@ function changeView(view) {
     //sets current view 
     currView = view;
 
-    // loads the language on each page
-    loadLanguage();
-
     //shows new view
     currViewElem = document.getElementById(currView);
     currViewElem.style.display = "";
@@ -280,17 +281,17 @@ function changeView(view) {
         document.getElementById(currView + "Line").classList.add('yellow-divisor');
     }
 
-    // if current view is map, loads map
+    //if current view is map, loads map
     if (currView == "mapPage") {
         if (window.cordova) {
-            // Check if location is enabled using cordova.plugins.diagnostic.isLocationEnabled
+            //Check if location is enabled using cordova.plugins.diagnostic.isLocationEnabled
             cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
                 if (!enabled) {
-                    // Display a swal (SweetAlert) if location is disabled
+                    //Display a swal (SweetAlert) if location is disabled
                     swal("Localização está desativada. Por favor ative-a para que a aplicação funcione corretamente");
                 }
             }, function (error) {
-                // Display an error swal if an error occurs
+                //Display an error swal if an error occurs
                 console.log("The following error occurred: " + error.message);
             });
         }
@@ -311,9 +312,9 @@ function refreshUserMarker() {
     var userIcon = L.icon({
         iconUrl: 'img/icons/userIcon.svg',
 
-        iconSize: [20, 40], // size of the icon
-        iconAnchor: [10, 40], // point of the icon which will correspond to marker's location
-        popupAnchor: [0, -40] // point from which the popup should open relative to the iconAnchor
+        iconSize: [20, 40], //size of the icon
+        iconAnchor: [10, 40], //point of the icon which will correspond to marker's location
+        popupAnchor: [0, -40] //point from which the popup should open relative to the iconAnchor
     });
 
     //if the user is within the defined bounds, adds or updates his current location into a marker, otherwise removes it if it exists
@@ -369,40 +370,51 @@ function pointsDescription(id) {
     changeView("desc");
 }
 
-
-let loadLanguage = () => {
-    // fetches data from globalization.json file
-    fetch("globalization.json")
+/**
+ * Fetches and load the globalization data from the json file
+ */
+let fetchGlobalization = () => {
+    return fetch('./globalization.json')
         .then(response => response.json())
         .then(data => {
-            // main elements
-            document.getElementById("main-title").innerHTML = data[lang]["main-title"];
-            document.getElementById("raul-lino-title").innerHTML = data[lang].title;
-
-            switch (currView) {
-                case "home":
-                    document.getElementById("page-title").innerHTML = data[lang].home.title;
-                    data[lang].home.paragraphs.forEach(paragraph => {
-                        document.getElementById("paragraphs").innerHTML += "<p>" + paragraph + "</p>";
-                    });
-                    break;
-                case "bio":
-                    document.getElementById("page-title").innerHTML = data[lang].bio.title;
-                    data[lang].bio.paragraphs.forEach(paragraph => {
-                        document.getElementById("paragraphs").innerHTML += "<p>" + paragraph + "</p>";
-                    });
-                    break;
-                case "mapPage":
-                    document.getElementById("page-title").innerHTML = data[lang].map.title;
-                    break;
-                
-                default:
-                    break;
-            }
-
-            // carousel
-            document.getElementById("previous").innerHTML = data[lang].map.previous;
-            document.getElementById("next").innerHTML = data[lang].map.next;
+            //assign the data to the global variable
+            globalization = data;
+            return globalization;
         })
-        .catch(err => console.log(err));
+        .catch(error => {
+            //handle any errors
+            console.error(error);
+        });
+}
+
+/**
+ * Loads the content of all static pages based on the current language
+ */
+let loadLanguageContent = () => {
+    //resets all paragraphs, so it doesn't append the new ones to the old ones
+    document.getElementById("paragraphs-home").innerHTML = "";
+    document.getElementById("paragraphs-bio").innerHTML = "";
+
+    //main elements
+    document.getElementById("main-title").innerHTML = globalization[lang]["main-title"];
+    document.getElementById("raul-lino-title").innerHTML = globalization[lang].title;
+
+    //home page
+    document.getElementById("page-title-home").innerHTML = globalization[lang].home.title;
+    globalization[lang].home.paragraphs.forEach(paragraph => {
+        document.getElementById("paragraphs-home").innerHTML += "<p>" + paragraph + "</p>";
+    });
+
+    //bio page
+    document.getElementById("page-title-bio").innerHTML = globalization[lang].bio.title;
+    globalization[lang].bio.paragraphs.forEach(paragraph => {
+        document.getElementById("paragraphs-bio").innerHTML += "<p>" + paragraph + "</p>";
+    });
+
+    //bio page
+    document.getElementById("page-title-map").innerHTML = globalization[lang].map.title;
+
+    //carousel
+    document.getElementById("previous").innerHTML = globalization[lang].map.previous;
+    document.getElementById("next").innerHTML = globalization[lang].map.next;
 }
