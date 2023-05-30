@@ -75,8 +75,6 @@ function onLocationError() {
  * @param {*} position coordinates of the user's location
  */
 function onSuccess(position) {
-    //gets language from storage
-    let lang = getLang();
     
     //set current user location
     gpsPosition = position.coords;
@@ -298,8 +296,6 @@ function changeView(view) {
 
     //if current view is settings, loads settings
     if (currView == "settings") {
-        //gets language from storage
-        lang = getLang();
         populateLanguageSelector();
     }
 }
