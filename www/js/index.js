@@ -42,6 +42,7 @@ let currView = "home";
 let map, gpsPosition;
 //bool to control current status of the user location marker
 let markerExists = false;
+let firstRun = true;
 
 //convert coordinates to leaflet object (Abrantes box corners in order to set map bounds)
 //these coordinates were acquired without any study (eye estimation)
@@ -51,26 +52,11 @@ const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 //use those coordinates to define the bounds of the map
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
-//ask for geolocation permission
-document.addEventListener('deviceready', function () {
-    //gets language from storage
-    lang = getLang();
 
-    cordova.plugins.diagnostic.requestLocationAuthorization(
-        function (status) {
-            //different possibilites of permission success, need to check all of them
-            if (status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
-                console.log("Permission granted.");
-                navigator.geolocation.getCurrentPosition(onSuccess, onError);
-            } else {
-                console.log("Permission denied.");
-                swal(localization[lang].location['permission-denied']);
-            }
-        }, function (error) {
-            console.error("The following error occurred: " + error);
-        }, false
-    );
-}, false);
+//gets language from storage and sets it as the app language
+document.addEventListener('deviceready', () => {
+    lang = getLang();
+});
 
 //loads current user location into gpsPosition global variable
 function onLocationFound(e) {
@@ -246,6 +232,7 @@ function onSuccess(position) {
         maximumAge: 1000,
         timeout: 2000
     });
+    
 };
 
 /**
@@ -290,6 +277,9 @@ function changeView(view) {
 
     //if current view is map, loads map
     if (currView == "mapPage") {
+        
+        askPermission();
+
         if (window.cordova) {
             //Check if location is enabled using cordova.plugins.diagnostic.isLocationEnabled
             cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
@@ -345,8 +335,7 @@ let populateLanguageSelector = () => {
  */
 function refreshUserMarker() {
     //update user coords every time the function is called
-    navigator.geolocation.watchPosition(onLocationFound, onLocationError, {
-    });
+    navigator.geolocation.watchPosition(onLocationFound, onLocationError);
     //creates the user icon to be added to the map
     let userIcon = L.icon({
         iconUrl: 'img/icons/userIcon.svg',
@@ -494,4 +483,45 @@ let setLang = (newLang) => {
  */
 let getLang = () => {
     return storage.getItem("lang") ?? setLang("pt-PT");
+}
+
+
+function askPermission() {
+    cordova.plugins.diagnostic.requestLocationAuthorization(
+        function (status) {
+            //different possibilites of permission success, need to check all of them
+            if (status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
+                console.log("Permission granted.");
+                navigator.geolocation.getCurrentPosition(onSuccess, onError);
+            } else {
+                console.log("Permission denied.");
+                if (firstRun) {
+                    firstRun = false;
+                    swal("Permissão de localização negada. Para que a app funcione corretamente ative-a nas definições.");
+                } else {
+                    swal("Permissão de localização negada. Para que a app funcione corretamente ative-a nas definições.", {
+                        buttons: {
+                          cancel: "Cancelar",
+                          settings: "Ir Para Definições",
+                        },
+                      })
+                      .then((value) => {
+                        switch (value) {
+                       
+                          case "cancel":
+                            break;
+                       
+                          case "settings":
+                            cordova.plugins.diagnostic.switchToLocationSettings();
+                            break;
+
+                        }
+                      });
+                }
+                
+            }
+        }, function (error) {
+            console.error("The following error occurred: " + error);
+        }, false
+    );
 }
