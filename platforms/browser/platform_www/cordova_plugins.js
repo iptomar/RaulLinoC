@@ -53,7 +53,8 @@ module.exports.metadata =
     "cordova-plugin-geolocation": "4.1.0",
     "cordova-plugin-splashscreen": "6.0.2",
     "cordova-plugin-whitelist": "1.3.4",
-    "cordova-plugin-locationservices-fix": "1.0.0"
+    "cordova-plugin-locationservices-fix": "1.0.0",
+    "cordova.plugins.diagnostic": "7.1.1"
 }
 // BOTTOM OF METADATA
 });
