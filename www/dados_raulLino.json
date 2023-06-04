@@ -1,5 +1,5 @@
 {
-    "data": [
+    "pt-PT": [
         {
             "id": 1,
             "title": "Rua Luís de Camões",
@@ -55,7 +55,7 @@
             "location": "Largo General Avelar Machado e Rua Montepio Abrantino",
             "coords": [
                 39.461466,
-                -8.198790
+                -8.19879
             ],
             "type": "Sede de associação cultural e recreativa",
             "info": "O edifício foi projetado para instalar a sede da Sociedade da Assembleia de Abrantes. Está implantado numa zona de acentuado declive, no limite do núcleo histórico da cidade de Abrantes, no cruzamento do Largo General Avelar Machado com a Rua do Montepio Abrantino. Foi inaugurado em 1928 e atualmente mantém-se como propriedade da Sociedade da Assembleia de Abrantes. A entrada principal do edifício no Largo General Avelar Machado está protegida por um alpendre de colunas cilíndricas, onde se destaca o lambril de azulejos policromado. No edifício destacam-se ainda os dois alpendres adjacentes, mas distintos entre si, e orientados a Norte; as rótulas que protegem as janelas das salas na fachada Sul; a cobertura de telha cerâmica e o beiral à portuguesa; os obeliscos de cantaria sobre a cobertura; e as chaminés. No interior, o edifício integra um salão para festas dotado de palco, uma sala de leitura e três salas de jogos, para além da cozinha com copa e das instalações sanitárias. O declive do terreno foi aproveitado para lojas comerciais e armazéns.",
@@ -87,7 +87,7 @@
             "year": "1924 e 1948",
             "location": "Rua D. Afonso Henriques, nº 25",
             "coords": [
-                39.463610,
+                39.46361,
                 -8.201411
             ],
             "type": "Habitação Unifamiliar",
@@ -184,7 +184,7 @@
             "year": "1936",
             "location": "Rua de Santa Isabel nº 28 e 30",
             "coords": [
-                39.461810,
+                39.46181,
                 -8.197334
             ],
             "type": "Habitação Unifamiliar",
@@ -215,7 +215,7 @@
             "year": "1938",
             "location": "Rua Afonso Henriques nº 9 a 11",
             "coords": [
-                39.463790,
+                39.46379,
                 -8.200921
             ],
             "type": "Habitação Unifamiliar",
@@ -279,10 +279,299 @@
             "location": "Cemitério de S. Miguel do Rio Torto, Carvalhal",
             "coords": [
                 39.417387,
-                -8.210650
+                -8.21065
             ],
             "type": "Arquitetura funerária",
             "info": "Este mausoléu, foi erigido em memória de João Augusto da Silva Martins, falecido em 1924, que foi uma figura proeminente em Carvalhal (Freguesia de S. Miguel do Rio Torto), onde mantinha em funcionamento a Companhia de Moagem de Abrantes, inaugurada em 1903. O edifício, em estilo austero, com formas clássicas, é composto por dois corpos com volumes diferenciados: o primeiro corresponde a um pórtico cuja entrada é flanqueada por duas colunas, e que antecede o segundo corpo, da capela, espaço de planta longitudinal, simples e com cobertura de duas águas, iluminado por óculo na fachada principal e fresta no muro oposto.",
+            "images": [
+                "img/roteiro/18/rot181.jpg"
+            ]
+        }
+    ],
+    "en-GB": [
+        {
+            "id": 1,
+            "title": "Rua Luís de Camões",
+            "year": "1919",
+            "location": "Rua Luís de Camões, No. 28",
+            "coords": [
+                39.4611988,
+                -8.1996441
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "This dwelling, located on the edge of the historic core of Abrantes, was probably the first project by Raul Lino in the city of Abrantes. It was intended as the home/studio of José Serra da Motta, a lawyer and watercolor painter. The residence is situated on a steeply sloping plot of land at the confluence of Rua Luís de Camões and Rua do Montepio Abrantino. It is spread over two floors and includes an attic. Notable features of the building include a west-facing porch supported by five columns, skylights that provide natural light to the attic, and two large chimneys decorated with red clay ceramic elements similar to those found on the staircase railing on the rear facade of the house.",
+            "images": [
+                "img/roteiro/1/rot11.JPG",
+                "img/roteiro/1/rot12.JPG"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Av. Portagem/Av. Paiol",
+            "year": "1922",
+            "location": "Av. Portagem/Av. Paiol",
+            "coords": [
+                39.456233,
+                -8.189917
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "Raul Lino's intervention involved expanding the nineteenth-century manor house located in the Quinta das Barreiras do Tejo. The architect added a construction to the existing main building, resulting in a symmetrical composition with a central body featuring a covered loggia and two flanking towers, one of which was intended as a chapel.",
+            "images": [
+                "img/roteiro/2/rot21.jpg",
+                "img/roteiro/2/rot22.jpg"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Rua da Fonte Nova, Tramagal",
+            "year": "1923",
+            "location": "Tramagal/Rua da Fonte Nova, No. 146",
+            "coords": [
+                39.452866,
+                -8.248377
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "In 1923, Raul Lino was commissioned to expand and modify a single-story dwelling in the town of Tramagal, adding an additional floor and an attic. The original building's layout was also reconfigured, and a porch was added along one side of the house. However, it is likely that the building was not executed according to Raul Lino's proposed design.",
+            "images": [
+                "img/roteiro/3/rot31.jpg",
+                "img/roteiro/3/rot32.jpg"
+            ]
+        },
+        {
+            "id": 4,
+            "title": "Largo General Avelar Machado and Rua Montepio Abrantino",
+            "year": "1923",
+            "location": "Largo General Avelar Machado and Rua Montepio Abrantino",
+            "coords": [
+                39.461466,
+                -8.19879
+            ],
+            "type": "Cultural and Recreational Association Headquarters",
+            "info": "The building was designed to house the headquarters of the Sociedade da Assembleia de Abrantes (Abrantes Assembly Society). It is located on a steeply sloping area at the edge of the historic core of Abrantes, at the intersection of Largo General Avelar Machado and Rua do Montepio Abrantino. It was inaugurated in 1928 and is currently owned by the Sociedade da Assembleia de Abrantes. The main entrance of the building on Largo General Avelar Machado is protected by a porch with cylindrical columns, featuring a polychrome tile wainscot. Other notable features of the building include two adjacent but distinct porches facing north, window guards on the south facade, a ceramic tile roof and Portuguese-style eaves, stone obelisks on the roof, and chimneys. The interior of the building includes a party hall with a stage, a reading room, three game rooms, a kitchen with a pantry, and restrooms. The slope of the terrain has been utilized for commercial shops and warehouses.",
+            "images": [
+                "img/roteiro/4/rot41.jpg",
+                "img/roteiro/4/rot42.jpg",
+                "img/roteiro/4/rot43.JPG"
+            ]
+        },
+        {
+            "id": 5,
+            "title": "Rua de São Pedro",
+            "year": "1924",
+            "location": "Rua de São Pedro, No. 8",
+            "coords": [
+                39.462793,
+                -8.196086
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "This building had a pre-existing structure that was subsequently altered on multiple occasions. The first intervention by Raul Lino dates back to 1924, when an expansion was added, including a second floor and an attic, following a design similar to the original building. Later, in 1942, Raul Lino redesigned the configuration of the facade openings.",
+            "images": [
+                "img/roteiro/5/rot51.JPG",
+                "img/roteiro/5/rot52.JPG"
+            ]
+        },
+        {
+            "id": 6,
+            "title": "Rua Dom Afonso Henriques",
+            "year": "1924 and 1948",
+            "location": "Rua Dom Afonso Henriques, No. 25",
+            "coords": [
+                39.46361,
+                -8.201411
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "The building resulting from the 1924 project is located on a street adjacent to the historic center. It consists of a two-story and basement construction with a centralized composition. In 1948, an expansion project was requested, and a contiguous structure was built on the adjacent plot. The existing building also underwent some changes in the distribution and organization of rooms during this construction campaign.",
+            "images": [
+                "img/roteiro/6/rot61.JPG",
+                "img/roteiro/6/rot62.JPG",
+                "img/roteiro/6/rot63.JPG"
+            ]
+        },
+        {
+            "id": 7,
+            "title": "Largo General Avelar Machado",
+            "year": "1928",
+            "location": "Largo General Avelar Machado",
+            "coords": [
+                39.461228,
+                -8.198713
+            ],
+            "type": "Public Art/Pedestal",
+            "info": "In 1928, Raul Lino designed the pedestal for the bust of General Avelar Machado (1848-1909), created by Ângelo Teixeira. The ensemble was inaugurated in 1929 and is located in the square facing the building of the Sociedade da Assembleia de Abrantes (and its main entrance).",
+            "images": [
+                "img/roteiro/7/rot71.JPG",
+                "img/roteiro/7/rot72.JPG",
+                "img/roteiro/7/rot73.JPG"
+            ]
+        },
+        {
+            "id": 8,
+            "title": "Rua Tenente Valadim",
+            "year": "1929 and 1963",
+            "location": "Rua Tenente Valadim, No. 3 and 5",
+            "coords": [
+                39.461644,
+                -8.197661
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "The original project for this residential building located near the Jardim da República in Abrantes is believed to have been designed by Raul Lino in 1929. In 1963, an expansion took place on the adjacent plot, resulting in the construction of a separate building that continues the composition of the existing facade.",
+            "images": [
+                "img/roteiro/8/rot81.jpg",
+                "img/roteiro/8/rot82.jpg"
+            ]
+        },
+        {
+            "id": 9,
+            "title": "Rua do Arcediago",
+            "year": "1923",
+            "location": "Rua do Arcediago, No. 19",
+            "coords": [
+                39.462735,
+                -8.196801
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "The design of this building corresponds to an urban residence that spans two floors. It features an open loggia on the first floor with a triple arcade, overlooking Rua do Arcediago.",
+            "images": [
+                "img/roteiro/9/rot91.JPG",
+                "img/roteiro/9/rot92.JPG"
+            ]
+        },
+        {
+            "id": 10,
+            "title": "Rua General Manuel António Mourato",
+            "year": "1923",
+            "location": "Rua General Manuel António Mourato, No. 11",
+            "coords": [
+                39.463106,
+                -8.197944
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "Raul Lino's project proposed the expansion of an existing single-story building located in the historic center of Abrantes on a narrow and deep plot. Two additional floors were added to the existing building, connected by an interior staircase.",
+            "images": [
+                "img/roteiro/10/rot101.JPG"
+            ]
+        },
+        {
+            "id": 11,
+            "title": "Rua José Estevão",
+            "year": "1935",
+            "location": "Rua José Estevão, No. 20",
+            "coords": [
+                39.463001,
+                -8.198164
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "Raul Lino's project involved an existing three-story building located in the historic center of Abrantes. The architect modified the composition of the third floor, replacing the original single window with two separate windows. Two circular windows were also added on the first and second floors, although the current facade features diamond-shaped windows (as evidenced by the current facade).",
+            "images": [
+                "img/roteiro/11/rot111.jpg",
+                "img/roteiro/11/rot112.png"
+            ]
+        },
+        {
+            "id": 12,
+            "title": "Rua de Santa Isabel",
+            "year": "1936",
+            "location": "Rua de Santa Isabel, No. 28 and 30",
+            "coords": [
+                39.46181,
+                -8.197334
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "Raul Lino's project started with an existing two-story building (ground floor + first floor) in the historic center of Abrantes, to which an additional floor was added. The ground floor was designated for commercial use, while the upper floors were used for housing.",
+            "images": [
+                "img/roteiro/12/rot121.JPG",
+                "img/roteiro/12/rot122.JPG"
+            ]
+        },
+        {
+            "id": 13,
+            "title": "Rua do Porto Taínho, Alferrarede",
+            "year": "1938",
+            "location": "Alferrarede, Rua do Porto Taínho, No. 24",
+            "coords": [
+                39.469188,
+                -8.188591
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "The building is located on a plot of land at the urban edge of Alferrarede, offering views of the floodplain and the Tagus River. The project reflects a single-family housing program, resulting in a small two-story house. The main entrance is protected by a porch accessed via a small flight of stairs.",
+            "images": [
+                "img/roteiro/13/rot131.jpg"
+            ]
+        },
+        {
+            "id": 14,
+            "title": "Rua Afonso Henriques",
+            "year": "1938",
+            "location": "Rua Afonso Henriques, No. 9 to 11",
+            "coords": [
+                39.46379,
+                -8.200921
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "In this project, Raul Lino was commissioned to make alterations to an existing three-story building with a facade covered in tiles. The project involved interior modifications to improve the living spaces and enhance comfort. Three mansard roofs were added to the exterior, two above the courtyard and another in the center of the main facade, facing the street.",
+            "images": [
+                "img/roteiro/14/rot141.JPG",
+                "img/roteiro/14/rot142.JPG"
+            ]
+        },
+        {
+            "id": 15,
+            "title": "Afonso Henriques",
+            "year": "1939",
+            "location": "Afonso Henriques (next to No. 25)",
+            "coords": [
+                39.463567,
+                -8.201586
+            ],
+            "type": "Garage",
+            "info": "This small project involved the construction of a garage on the site of a pre-existing structure, a 'barracão,' near the residential building designed by Raul Lino in 1924 for Guilherme Moura Neves, which was later expanded in 1948. Given the narrow plot, the project proposed the construction of a garage to serve the residence. The slope of the terrain allowed for differentiated access to the dependencies.",
+            "images": [
+                "img/roteiro/15/rot151.JPG"
+            ]
+        },
+        {
+            "id": 16,
+            "title": "Rua Afonso Henriques",
+            "year": "1939 and 1941",
+            "location": "Rua Afonso Henriques, No. 13 to 15",
+            "coords": [
+                39.463702,
+                -8.201182
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "The project consists of a two-story single-family dwelling with a basement, featuring a plan with pronounced horizontal lines. Notable elements of the building include the metal railings of the balconies, the stone detailing around the window openings and doors, as well as the chimney.",
+            "images": [
+                "img/roteiro/16/rot161.JPG",
+                "img/roteiro/16/rot162.JPG"
+            ]
+        },
+        {
+            "id": 17,
+            "title": "Rua 5 de outubro de 1910",
+            "year": "1940",
+            "location": "Rua 5 de outubro de 1910, No. 16",
+            "coords": [
+                39.464757,
+                -8.197524
+            ],
+            "type": "Single-Family Dwelling",
+            "info": "Raul Lino proposed significant alterations to this residential building located near the Church of S. Vicente and Largo da Ferraria. The modifications included the reconfiguration of the main facade by removing the balustrade and adding a cornice to the roof. Dormer windows were also added, and the redesign and replacement of the moldings, carpentry, and metalwork of the doors and windows were proposed.",
+            "images": [
+                "img/roteiro/17/rot171.JPG",
+                "img/roteiro/17/rot172.JPG"
+            ]
+        },
+        {
+            "id": 18,
+            "title": "S. Miguel do Rio Torto Cemetery",
+            "year": "1924",
+            "location": "S. Miguel do Rio Torto Cemetery, Carvalhal",
+            "coords": [
+                39.417387,
+                -8.21065
+            ],
+            "type": "Funerary Architecture",
+            "info": "This mausoleum was erected in memory of João Augusto da Silva Martins, who passed away in 1924. He was a prominent figure in Carvalhal (S. Miguel do Rio Torto Parish), where he operated the Companhia de Moagem de Abrantes, a milling company inaugurated in 1903. The building, with its austere and classical forms, consists of two distinct volumes. The first is a portico with an entrance flanked by two columns, leading to the second volume—the chapel. The chapel has a simple longitudinal plan with a gabled roof, illuminated by an oculus on the main facade and a small opening in the opposite wall.",
             "images": [
                 "img/roteiro/18/rot181.jpg"
             ]
