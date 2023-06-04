@@ -16,120 +16,100 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
+/* * { */
+    /* -webkit-tap-highlight-color: rgba(0,0,0,0); make transparent link selection, adjust last value opacity 0 to 1.0 */
+/* } */
 @font-face {
     font-family: "RaulLinoFonte";
-    src: url("../RaulLinoFonte.ttf");
+    src: url("/www/RaulLinoFonte.ttf");
 }
 
-/* elements */
+.class-font {
+    font-family: 'RaulLinoFonte';
+}
+
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    user-select: none;                          /* required to use webkit-user-select */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color: #f3f4f6;
+    /* -webkit-touch-callout: none;                prevent callout to copy image, etc when tap to hold */
+    /* -webkit-text-size-adjust: none;             prevent webkit from resizing text to fit */
+    /* -webkit-user-select: none;                  prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    padding-top: 88px;
-    padding-bottom: 80px;
+    /* font-size:12px; */
+    /* height:100vh; */
+    /* margin:0px; */
+    /* padding:0px; */
+    /* Padding to avoid the "unsafe" areas behind notches in the screen */
+    /* padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px); */
+    text-transform:uppercase;
+    /* width:100%; */
+    padding-bottom: 76px;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'RaulLinoFonte', sans-serif;
-}
+/* Portrait layout (default) */
+/* .app { */
+    /* background:url(../img/logo.png) no-repeat center top; 170px x 200px */
+    /* position:absolute;             position in the center of the screen */
+    /* left:50%; */
+    /* top:50%; */
+    /* height:50px;                   text area height */
+    /* width:225px;                   text area width */
+    /* text-align:center; */
+    /* padding:180px 0px 0px 0px;     image height is 200px (bottom 20px are overlapped with text) */
+    /* margin:-115px 0px 0px -112px;  offset vertical: half of image height and text area height */
+                                   /* offset horizontal: half of text area width */
+/* } */
 
-p {
-    text-align: justify;
-    font-size: 22px;
-}
+/* Landscape layout (with min-width) */
+/* @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) { */
+    /* .app { */
+        /* background-position:left center; */
+        /* padding:75px 0px 75px 170px;  padding-top + padding-bottom + text area = image height */
+        /* margin:-90px 0px 0px -198px;  offset vertical: half of image height */
+                                      /* offset horizontal: half of image width and text area width */
+    /* } */
+/* } */
 
-a {
-    cursor: pointer;
-}
+/* .event {
+    border-radius:4px;
+    color:#FFFFFF;
+    font-size:12px;
+    margin:0px 30px;
+    padding:2px 0px;
+} */
 
-/* classes */
-.yellow-divisor {
-    background-color: #e2d301;
-    height: 2px;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
+/* .event.listening {
+    background-color:#333333;
+    display:block;
+} */
 
-.transparent-divisor {
-    background-color: transparent;
-    height: 2px;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-}
+/* .event.received {
+    background-color:#4B946A;
+    display:none;
+} */
 
-.title-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 10px 0 10px;
-}
+/* #deviceready.ready .event.listening { display: none; } */
+/* #deviceready.ready .event.received { display: block; } */
 
-.page-title {
-    text-align: left;
-    font-size: 28px;
-}
+/* @keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+} */
 
-.navigator-icons {
-    height: 50px;
-    width: 50px;
-}
+/* .blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+} */
 
-.car-img {
-    @media (max-width: 300px) {
-        height: 125px;
-    }
 
-    @media (min-width: 300px) {
-        height: 175px;
-    }
+/* @media screen and (prefers-color-scheme: dark) {
+} */
 
-    @media (min-width: 820px) {
-        height: 200px;
-    }
-
-    @media (min-width: 1024px) {
-        height: 275px;
-    }
-
-    @media (min-width: 2048px) {
-        height: 425px;
-    }
-}
-
-/* identifiers */
-#bio-img {
-
-    @media (max-width: 300px) {
-        height: 100px;
-    }
-
-    @media (min-width: 300px) {
-        height: 150px;
-    }
-
-    @media (min-width: 820px) {
-        height: 175px;
-    }
-
-    @media (min-width: 1024px) {
-        height: 250px;
-    }
-
-    @media (min-width: 2048px) {
-        height: 400px;
-    }
-}
-
-#content {
-    margin-left: 12px;
+#mapContainer {
+    position : center; 
+    border: 1px solid #000;
+    margin: 10px 10px 100px 10px;
+    height: fit-content;
 }
 
 #map {
@@ -142,11 +122,29 @@ a {
     height: 70vh;
 }
 
-#main-title {
-    font-size: 48px;
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 10px 0 10px;
 }
 
-#raul-lino-title{
-    font-size: 32px;
+h1 {
+    font-size:24px;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 18px;
+    margin-left: auto;
     color: #04c263;
 }
