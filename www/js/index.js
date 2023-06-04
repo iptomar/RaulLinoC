@@ -127,20 +127,40 @@ function onSuccess(position) {
     //variables to hold the markers that are going to change icons
     let yellowMarkers = L.layerGroup();
     let greenMarkers = L.layerGroup();
+
+    // specify popup options 
+    const customOptions = {
+        'maxWidth': '400',
+        'width': '200',
+        'maxWidth': '150',
+        'minWidth': '150',
+        'className' : 'custom'
+    };
     
     //add the markers based on the each elements coordinates to the map
     data[lang].forEach(element => {
+        let customPopup = '<a class="cursor-pointer" onclick="pointsDescription(' + element.id + ');">'+
+            '<div class="row d-flex align-items-center">'+
+                '<div class="col no-padding text-left pr-2">'+
+                    element.title +
+                '</div>'+
+                '<div class="col-2 no-padding">'+
+                    '<img src="img/icons/ArrowTopRightOnSquare.svg" class="icon-popup">'+
+                '</div>'+
+            '</div>'+
+        '</a>';
+        
         //if the element belong to the yellow itinerary, add it to the yellowMarkers layer
         if ([1,4,6,7,10,11,14,15,16].includes(element.id)){
             yellowMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerY })
-                .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
+                .bindPopup(customPopup, customOptions));
             greenMarkers.addLayer(L.marker([element.coords[0], element.coords[1]], { icon: markerG })
-                .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>'));
+                .bindPopup(customPopup, customOptions));
         //if the element belongs to the green itinerary, add a green marker
         }else{
             L.marker([element.coords[0], element.coords[1]], { icon: markerG })
                 .addTo(map)
-                .bindPopup('<a style="cursor:pointer;" onclick="pointsDescription(' + element.id + ');">' + element.title + '</a>');
+                .bindPopup(customPopup, customOptions);
         }
     });
 
