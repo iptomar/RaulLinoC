@@ -104,6 +104,26 @@ a {
     }
 }
 
+/* css to customize Leaflet default styles  */
+.custom .leaflet-popup-tip,
+.custom .leaflet-popup-content-wrapper {
+    background: black;
+    color: white;
+    opacity: 0.5;
+}
+
+.icon-popup {
+    opacity: 1;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 /* identifiers */
 #bio-img {
 
