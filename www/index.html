@@ -146,8 +146,27 @@
         </div>
         <!-- itineraries historic view -->
         <div id="hist" class="pag" style="display: none;">
-            <div id="itineraries" class="container">
-            </div>
+            <div class="container">
+                <div class="container">
+                    <!--2 buttons side by side-->
+                    <div class="row justify-content-center">
+                        <div class="navigator col p-0 flex-column d-flex align-items-center">
+                            <!--shows yellow itinerary historic-->
+                            <button id="yellowButton" class="btn btn-warning" onclick="showHistoric('yellow')">Amarelo</button>
+                        </div>
+                        <div class="navigator col p-0 flex-column d-flex align-items-center">
+                            <!--shows green itinerary historic-->
+                            <button id="greenButton" class="btn btn-success" onclick="showHistoric('green')">Verde</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <!--historic dic-->
+                    <div id="historic" class="container">
+                    </div>
+                </div>
+            </div>            
+        </div>
     </div>
 
     <!-- fixed footer -->

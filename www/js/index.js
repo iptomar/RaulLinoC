@@ -191,16 +191,6 @@ function onSuccess(position) {
     //boolean to check if the itineraries are being shown
     var itinerariesShown = false;
 
-    //icon for the show/hide itineraries button
-    var itineraryIcon = L.icon({
-        iconUrl: 'img\\icons\\mapa_itinerario.svg',
-        iconSize: [50, 50],
-        //icon allignment set to bottom mid corner of the icon
-        iconAnchor: [25, 50],
-        //popup allignment set to top mid corner of the icon
-        popupAnchor: [-5, -40]
-    });
-
     //create a button on the map to show/hide the itineraries
     L.easyButton('<img src="img/icons/mapa_itinerario.svg" style="width:30px">', function () {
         if (!itinerariesShown) {
@@ -227,7 +217,8 @@ function onSuccess(position) {
 
     //create a button to open the view with the itineraries historic
     L.easyButton('<img src="img/icons/mapa_historia.svg" style="width:30px">', function () {
-        changeView("hist");
+        //calls the function to show the yellow itinerary historic
+        showHistoric("yellow");
     }).addTo(map);
 
     //update user coords every 5 seconds
@@ -259,7 +250,7 @@ function changeView(view) {
     currViewElem.style.display = "none";
 
     //resets last view line color
-    if (currView != "desc") {
+    if (currView != "desc" && currView != "hist") {
         document.getElementById(currView + "Line").classList.remove('yellow-divisor');
         document.getElementById(currView + "Line").classList.add('transparent-divisor');
     }
@@ -272,7 +263,7 @@ function changeView(view) {
     currViewElem.style.display = "";
 
     //sets new view line color
-    if (currView != "desc") {
+    if (currView != "desc" && currView != "hist") {
         document.getElementById(currView + "Line").classList.remove('transparent-divisor');
         document.getElementById(currView + "Line").classList.add('yellow-divisor');
     }
@@ -364,4 +355,62 @@ function pointsDescription(id) {
             document.getElementById("iterPImg").innerHTML = auxImg;
         });
     changeView("desc");
+}
+
+/**
+ * Shows the historic of the itinerary
+ *  
+ * @param {*} itin string name of the itinerary
+ */
+function showHistoric(itin) {
+    //auxiliar variable to store the html code
+    var aux = '';
+    var num = 0;
+    //if the itinerary is yellow, insert the ids of the points in the array
+    if(itin == "yellow"){
+        var ids = [1,4,6,7,10,11,14,15,16];
+    } else{
+        var ids = [5,8,9,12,17];
+    }
+
+    //for each marker in the yellorMarkers group, add the html code to the aux variable
+    for (num; num < ids.length; num++) {
+        (function (num) {
+            fetch("dados_raulLino.json")
+            .then(response => response.json())
+            .then(json => {
+                aux += '<br />';
+                aux += '<hr class="w-100 p-0 m-0"/>';
+                aux += '<br />';
+                aux += '<div class="container">';
+                    aux += '<div>';
+                        aux += '<h1 class="display-6">' + json.data[ids[(num)]].title + '</h1><br />';
+                        aux += '<p>' + json.data[ids[num]].info + '</p>';
+                    aux += '</div>';
+                aux += '</div>';
+
+                aux += '<div class="container">';
+                    aux += '<div class="carousel slide" data-ride="carousel">';
+                        aux += '<div class="carousel-inner">';
+                        var j = 0;
+                        for (j; j < json.data[ids[num]].images.length; j++) {
+                            (function (j) {
+                            var element = json.data[ids[num]].images[j];
+                            if (j === 0 ) {
+                                aux += '<div class="carousel-item active">';
+                            } else {
+                                aux += '<div class="carousel-item">';
+                            }
+                                    aux += '<img class="d-block w-100 car-img" src="' + element + '" alt="Slide ' + (j + 1) + '">' ;
+                                aux += '</div>';
+                            })(j);
+                        }
+                        aux += '</div>';
+                    aux += '</div>';
+                aux += '</div>';
+                document.getElementById("historic").innerHTML = aux;
+           });
+        })(num);
+    }
+    changeView("hist");
 }
