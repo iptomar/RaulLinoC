@@ -368,9 +368,9 @@ function showHistoric(itin) {
     var num = 0;
     //if the itinerary is yellow, insert the ids of the points in the array
     if(itin == "yellow"){
-        var ids = [1,4,6,7,10,11,14,15,16];
+        var ids = [0,3,5,6,9,10,13,14,15];
     } else{
-        var ids = [5,8,9,12,17];
+        var ids = [4,7,8,11,16];
     }
 
     //for each marker in the yellorMarkers group, add the html code to the aux variable
