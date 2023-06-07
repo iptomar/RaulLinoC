@@ -275,7 +275,7 @@ function changeView(view) {
     currViewElem.style.display = "none";
 
     //resets last view line color
-    if (currView != "desc") {
+    if (currView != "desc" && currView != "amplifiedImage") {
         document.getElementById(currView + "Line").classList.remove('yellow-divisor');
         document.getElementById(currView + "Line").classList.add('transparent-divisor');
     }
@@ -288,7 +288,7 @@ function changeView(view) {
     currViewElem.style.display = "";
 
     //sets new view line color
-    if (currView != "desc") {
+    if (currView != "desc" && currView != "amplifiedImage") {
         document.getElementById(currView + "Line").classList.remove('transparent-divisor');
         document.getElementById(currView + "Line").classList.add('yellow-divisor');
     }
@@ -397,19 +397,31 @@ function pointsDescription(id) {
     auxDesc += '</div>';
 
     for (let i = 0; i < data[lang][id].images.length; i++) {
-        let element = data[lang][id].images[i];
+        let img = data[lang][id].images[i];
         if (i === 0) {
             auxImg += '<div class="carousel-item active">';
         } else {
             auxImg += '<div class="carousel-item">';
         }
-        auxImg += '<img class="d-block w-100 car-img" src="' + element + '" alt="Slide ' + (i + 1) + '">' + '</div>';
+        auxImg += '<img class="d-block w-100" src="' + img + '" alt="Slide ' + (i + 1) + '" onclick="amplifyImage(' + id + "," + i + ')">' + '</div>';
     }
 
     document.getElementById("iterPDesc").innerHTML = auxDesc;
     document.getElementById("iterPImg").innerHTML = auxImg;
 
     changeView("desc");
+}
+
+/**
+ * Creates a new page with the description of the point
+ * 
+ * @param {*} objId id of the point
+ * @param {*} imgId id of the image
+ */
+function amplifyImage(objId, imgId) {
+    const img = data[lang][objId].images[imgId];
+    document.getElementById("amplifiedImage").innerHTML = '<img src="' + img + '" class="d-block w-100" alt="Amplified image">';
+    changeView("amplifiedImage");
 }
 
 /**
