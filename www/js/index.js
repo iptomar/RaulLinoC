@@ -385,11 +385,11 @@ function refreshUserMarker() {
  * 
  * @param {*} id id of the point
  */
-function pointsDescription(obj) {
+function pointsDescription(id) {
     let auxDesc = '', auxImg = '';
 
-    //gets the id of the point
-    let id = obj - 1;
+    //overriding the id to match the array index
+    id -= 1;
 
     auxDesc += '<div>';
     auxDesc += '<h1 class="display-6">' + data[lang][id].title + '</h1><br />';
