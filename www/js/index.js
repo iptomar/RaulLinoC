@@ -388,6 +388,9 @@ function refreshUserMarker() {
 function pointsDescription(id) {
     let auxDesc = '', auxImg = '';
 
+    //overriding the id to match the array index
+    id -= 1;
+
     auxDesc += '<div>';
     auxDesc += '<h1 class="display-6">' + data[lang][id].title + '</h1><br />';
     auxDesc += '<p>' + data[lang][id].info + '</p>';
