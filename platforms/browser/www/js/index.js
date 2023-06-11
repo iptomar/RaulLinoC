@@ -47,21 +47,20 @@ const DOWNRIGHTCORNER = L.latLng(39.401459, -8.050828);
 const bounds = L.latLngBounds(UPLEFTCORNER, DOWNRIGHTCORNER);
 
 //ask for geolocation permission
-document.addEventListener('deviceready', function () {
+document.addEventListener('deviceready', function(){
     cordova.plugins.diagnostic.requestLocationAuthorization(
-        function (status) {
+        function(status){
             //different possibilites of permission success, need to check all of them
-            if (status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
+            if(status == cordova.plugins.diagnostic.permissionStatus.GRANTED || status == cordova.plugins.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE){
                 console.log("Permission granted.");
                 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-            } else {
+            }else{
                 console.log("Permission denied.");
-                swal("Permissão de localização negada. Por favor ative-a para que a aplicação funcione corretamente.");
             }
-        }, function (error) {
-            console.error("The following error occurred: " + error);
+        }, function(error){
+            console.error("The following error occurred: "+error);
         }, false
-    );
+    );  
 }, false);
 
 //loads current user location into gpsPosition global variable
@@ -83,8 +82,6 @@ function onLocationError() {
 function onSuccess(position) {
     //set current user location
     gpsPosition = position.coords;
-
-
     console.log("Starting map loading.")
     // create the map with
     map = L.map('map', {
@@ -334,7 +331,6 @@ function refreshUserMarker() {
         }
     }
 }
-
 
 /**
  * Creates a new page with the description of the point
