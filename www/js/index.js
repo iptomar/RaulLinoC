@@ -258,7 +258,10 @@ function onSuccess(position) {
  * @param {*} error 
  */
 function onError(error) {
-    swal(localization[lang].location.error);
+    swal({
+        title: localization[lang].location.error,
+        icon: 'error',
+    });
     console.log("error code:" + error.code);
     console.log("error message:" + error.message);
 }
@@ -303,7 +306,10 @@ function changeView(view) {
             cordova.plugins.diagnostic.isLocationEnabled(function (enabled) {
                 if (!enabled) {
                     //Display a swal (SweetAlert) if location is disabled
-                    swal(localization[lang].location.deactivated);
+                    swal({
+                        title: localization[lang].location.deactivated,
+                        icon: 'error',
+                    });
                 }
             }, function (error) {
                 //Display an error swal if an error occurs
@@ -528,9 +534,13 @@ function askPermission() {
                 console.log("Permission denied.");
                 if (firstRun) {
                     firstRun = false;
-                    swal("Permissão de localização negada. Para que a app funcione corretamente ative-a nas definições.");
+                    swal("Permissão de localização negada. Para que a app funcione corretamente ative-a nas definições."
+                    , {
+                        icon: "error",
+                    });
                 } else {
                     swal("Permissão de localização negada. Para que a app funcione corretamente ative-a nas definições.", {
+                        icon: "error",
                         buttons: {
                           cancel: "Cancelar",
                           settings: "Ir Para Definições",
